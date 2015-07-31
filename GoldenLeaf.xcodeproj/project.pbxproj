@@ -36,6 +36,8 @@
 		165824FC1B6BABBB00DF5EB2 /* bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 165824E71B6BABBB00DF5EB2 /* bar.png */; };
 		165824FD1B6BABBB00DF5EB2 /* bar_specular.png in Resources */ = {isa = PBXBuildFile; fileRef = 165824E81B6BABBB00DF5EB2 /* bar_specular.png */; };
 		165824FF1B6BAD8700DF5EB2 /* barcode.png in Resources */ = {isa = PBXBuildFile; fileRef = 165824FE1B6BAD8700DF5EB2 /* barcode.png */; };
+		165825011B6BBACC00DF5EB2 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 165825001B6BBACC00DF5EB2 /* arrow.png */; };
+		165825031B6BBB9000DF5EB2 /* arrow_up.png in Resources */ = {isa = PBXBuildFile; fileRef = 165825021B6BBB9000DF5EB2 /* arrow_up.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,6 +86,8 @@
 		165824E71B6BABBB00DF5EB2 /* bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bar.png; sourceTree = "<group>"; };
 		165824E81B6BABBB00DF5EB2 /* bar_specular.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bar_specular.png; sourceTree = "<group>"; };
 		165824FE1B6BAD8700DF5EB2 /* barcode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = barcode.png; sourceTree = "<group>"; };
+		165825001B6BBACC00DF5EB2 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
+		165825021B6BBB9000DF5EB2 /* arrow_up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow_up.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,8 +185,10 @@
 				165824DE1B6BABBB00DF5EB2 /* 20.png */,
 				165824DF1B6BABBB00DF5EB2 /* 21.png */,
 				165824E01B6BABBB00DF5EB2 /* 222.png */,
+				165825001B6BBACC00DF5EB2 /* arrow.png */,
 				165824E11B6BABBB00DF5EB2 /* 22new.png */,
 				165824E21B6BABBB00DF5EB2 /* 333.png */,
+				165825021B6BBB9000DF5EB2 /* arrow_up.png */,
 				165824E31B6BABBB00DF5EB2 /* 444.png */,
 				165824E41B6BABBB00DF5EB2 /* 44444.png */,
 				165824E51B6BABBB00DF5EB2 /* 55555.png */,
@@ -274,10 +280,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				165824F51B6BABBB00DF5EB2 /* 222.png in Resources */,
+				165825031B6BBB9000DF5EB2 /* arrow_up.png in Resources */,
 				165824FC1B6BABBB00DF5EB2 /* bar.png in Resources */,
 				165824F21B6BABBB00DF5EB2 /* 2.png in Resources */,
 				165824EA1B6BABBB00DF5EB2 /* 10.png in Resources */,
 				165824F61B6BABBB00DF5EB2 /* 22new.png in Resources */,
+				165825011B6BBACC00DF5EB2 /* arrow.png in Resources */,
 				165824F11B6BABBB00DF5EB2 /* 17.png in Resources */,
 				165824FD1B6BABBB00DF5EB2 /* bar_specular.png in Resources */,
 				165824EC1B6BABBB00DF5EB2 /* 1111.png in Resources */,
@@ -446,6 +454,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = GoldenLeaf/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -456,6 +465,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = GoldenLeaf/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -514,6 +524,7 @@
 				165824CF1B6BABA300DF5EB2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		165824D01B6BABA300DF5EB2 /* Build configuration list for PBXNativeTarget "GoldenLeafTests" */ = {
 			isa = XCConfigurationList;
@@ -522,6 +533,7 @@
 				165824D21B6BABA300DF5EB2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
