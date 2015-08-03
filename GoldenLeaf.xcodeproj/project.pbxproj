@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		165824B01B6BABA300DF5EB2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 165824AF1B6BABA300DF5EB2 /* main.m */; };
 		165824B31B6BABA300DF5EB2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 165824B21B6BABA300DF5EB2 /* AppDelegate.m */; };
-		165824B61B6BABA300DF5EB2 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 165824B51B6BABA300DF5EB2 /* ViewController.m */; };
+		165824B61B6BABA300DF5EB2 /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 165824B51B6BABA300DF5EB2 /* ViewController.mm */; };
 		165824B91B6BABA300DF5EB2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 165824B71B6BABA300DF5EB2 /* Main.storyboard */; };
 		165824BB1B6BABA300DF5EB2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 165824BA1B6BABA300DF5EB2 /* Images.xcassets */; };
 		165824BE1B6BABA300DF5EB2 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 165824BC1B6BABA300DF5EB2 /* LaunchScreen.xib */; };
@@ -38,6 +38,7 @@
 		165824FF1B6BAD8700DF5EB2 /* barcode.png in Resources */ = {isa = PBXBuildFile; fileRef = 165824FE1B6BAD8700DF5EB2 /* barcode.png */; };
 		165825011B6BBACC00DF5EB2 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 165825001B6BBACC00DF5EB2 /* arrow.png */; };
 		165825031B6BBB9000DF5EB2 /* arrow_up.png in Resources */ = {isa = PBXBuildFile; fileRef = 165825021B6BBB9000DF5EB2 /* arrow_up.png */; };
+		1658253A1B6F9FFA00DF5EB2 /* libFumarIOS2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 165825391B6F9FFA00DF5EB2 /* libFumarIOS2.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,7 +58,7 @@
 		165824B11B6BABA300DF5EB2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		165824B21B6BABA300DF5EB2 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		165824B41B6BABA300DF5EB2 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		165824B51B6BABA300DF5EB2 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		165824B51B6BABA300DF5EB2 /* ViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ViewController.mm; sourceTree = "<group>"; };
 		165824B81B6BABA300DF5EB2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		165824BA1B6BABA300DF5EB2 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		165824BD1B6BABA300DF5EB2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -88,6 +89,8 @@
 		165824FE1B6BAD8700DF5EB2 /* barcode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = barcode.png; sourceTree = "<group>"; };
 		165825001B6BBACC00DF5EB2 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
 		165825021B6BBB9000DF5EB2 /* arrow_up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow_up.png; sourceTree = "<group>"; };
+		165825381B6F9FFA00DF5EB2 /* FumarIOS2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FumarIOS2.h; sourceTree = "<group>"; };
+		165825391B6F9FFA00DF5EB2 /* libFumarIOS2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFumarIOS2.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +98,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1658253A1B6F9FFA00DF5EB2 /* libFumarIOS2.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -111,6 +115,7 @@
 		165824A11B6BABA300DF5EB2 = {
 			isa = PBXGroup;
 			children = (
+				165825351B6F9FFA00DF5EB2 /* Fumar */,
 				165824AC1B6BABA300DF5EB2 /* GoldenLeaf */,
 				165824C61B6BABA300DF5EB2 /* GoldenLeafTests */,
 				165824AB1B6BABA300DF5EB2 /* Products */,
@@ -133,7 +138,7 @@
 				165824B11B6BABA300DF5EB2 /* AppDelegate.h */,
 				165824B21B6BABA300DF5EB2 /* AppDelegate.m */,
 				165824B41B6BABA300DF5EB2 /* ViewController.h */,
-				165824B51B6BABA300DF5EB2 /* ViewController.m */,
+				165824B51B6BABA300DF5EB2 /* ViewController.mm */,
 				165824B71B6BABA300DF5EB2 /* Main.storyboard */,
 				165824BA1B6BABA300DF5EB2 /* Images.xcassets */,
 				165824BC1B6BABA300DF5EB2 /* LaunchScreen.xib */,
@@ -197,6 +202,31 @@
 				165824E81B6BABBB00DF5EB2 /* bar_specular.png */,
 			);
 			path = Images;
+			sourceTree = "<group>";
+		};
+		165825351B6F9FFA00DF5EB2 /* Fumar */ = {
+			isa = PBXGroup;
+			children = (
+				165825361B6F9FFA00DF5EB2 /* include */,
+				165825391B6F9FFA00DF5EB2 /* libFumarIOS2.a */,
+			);
+			path = Fumar;
+			sourceTree = "<group>";
+		};
+		165825361B6F9FFA00DF5EB2 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				165825371B6F9FFA00DF5EB2 /* FumarIOS2 */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		165825371B6F9FFA00DF5EB2 /* FumarIOS2 */ = {
+			isa = PBXGroup;
+			children = (
+				165825381B6F9FFA00DF5EB2 /* FumarIOS2.h */,
+			);
+			path = FumarIOS2;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -323,7 +353,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				165824B61B6BABA300DF5EB2 /* ViewController.m in Sources */,
+				165824B61B6BABA300DF5EB2 /* ViewController.mm in Sources */,
 				165824B31B6BABA300DF5EB2 /* AppDelegate.m in Sources */,
 				165824B01B6BABA300DF5EB2 /* main.m in Sources */,
 			);
@@ -452,22 +482,35 @@
 		165824CE1B6BABA300DF5EB2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = armv7;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = GoldenLeaf/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Fumar",
+				);
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Debug;
 		};
 		165824CF1B6BABA300DF5EB2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = armv7;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = GoldenLeaf/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Fumar",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Release;
 		};
