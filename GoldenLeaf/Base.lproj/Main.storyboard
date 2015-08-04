@@ -102,13 +102,26 @@
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qLu-CI-43K">
+                                                <rect key="frame" x="-6" y="0.0" width="86" height="78"/>
+                                                <state key="normal">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="scan:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ghX-XR-riL"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
+                                            <constraint firstItem="qLu-CI-43K" firstAttribute="top" secondItem="tya-db-KN1" secondAttribute="top" id="KRJ-ym-UxC"/>
+                                            <constraint firstAttribute="trailing" secondItem="qLu-CI-43K" secondAttribute="trailing" id="NoR-Kb-ybv"/>
                                             <constraint firstAttribute="centerX" secondItem="psN-Za-0cm" secondAttribute="centerX" id="Q2F-ZB-IVQ"/>
                                             <constraint firstAttribute="centerX" secondItem="Qpk-aK-oJF" secondAttribute="centerX" id="U8h-8S-8fd"/>
                                             <constraint firstAttribute="bottom" secondItem="psN-Za-0cm" secondAttribute="bottom" constant="8" id="c3q-W6-L8H"/>
                                             <constraint firstItem="Qpk-aK-oJF" firstAttribute="top" secondItem="tya-db-KN1" secondAttribute="top" constant="9" id="eky-gX-UGm"/>
+                                            <constraint firstItem="qLu-CI-43K" firstAttribute="leading" secondItem="tya-db-KN1" secondAttribute="leading" id="h4b-9W-nYc"/>
+                                            <constraint firstAttribute="bottom" secondItem="qLu-CI-43K" secondAttribute="bottom" id="sR9-b7-wRU"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jq4-uL-c35">
@@ -433,6 +446,7 @@
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
+                        <outlet property="_tabBar" destination="YG4-0j-Z9W" id="ztj-6m-j4m"/>
                         <outlet property="view1" destination="03Y-4Q-jv2" id="yqZ-c3-7nO"/>
                         <outlet property="view2" destination="4Hi-Gt-SZt" id="try-2b-P8u"/>
                         <outlet property="view3" destination="7pz-ZQ-HDA" id="PPs-VP-scs"/>

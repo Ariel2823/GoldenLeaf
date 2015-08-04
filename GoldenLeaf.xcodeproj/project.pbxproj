@@ -39,6 +39,8 @@
 		165825011B6BBACC00DF5EB2 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 165825001B6BBACC00DF5EB2 /* arrow.png */; };
 		165825031B6BBB9000DF5EB2 /* arrow_up.png in Resources */ = {isa = PBXBuildFile; fileRef = 165825021B6BBB9000DF5EB2 /* arrow_up.png */; };
 		1658253A1B6F9FFA00DF5EB2 /* libFumarIOS2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 165825391B6F9FFA00DF5EB2 /* libFumarIOS2.a */; };
+		168C8A451B70483F007F6D0E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 168C8A441B70483F007F6D0E /* AVFoundation.framework */; };
+		168C8A471B70487F007F6D0E /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 168C8A461B70487F007F6D0E /* CoreMedia.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,6 +93,8 @@
 		165825021B6BBB9000DF5EB2 /* arrow_up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow_up.png; sourceTree = "<group>"; };
 		165825381B6F9FFA00DF5EB2 /* FumarIOS2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FumarIOS2.h; sourceTree = "<group>"; };
 		165825391B6F9FFA00DF5EB2 /* libFumarIOS2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFumarIOS2.a; sourceTree = "<group>"; };
+		168C8A441B70483F007F6D0E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		168C8A461B70487F007F6D0E /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +102,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				168C8A471B70487F007F6D0E /* CoreMedia.framework in Frameworks */,
+				168C8A451B70483F007F6D0E /* AVFoundation.framework in Frameworks */,
 				1658253A1B6F9FFA00DF5EB2 /* libFumarIOS2.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -115,6 +121,8 @@
 		165824A11B6BABA300DF5EB2 = {
 			isa = PBXGroup;
 			children = (
+				168C8A461B70487F007F6D0E /* CoreMedia.framework */,
+				168C8A441B70483F007F6D0E /* AVFoundation.framework */,
 				165825351B6F9FFA00DF5EB2 /* Fumar */,
 				165824AC1B6BABA300DF5EB2 /* GoldenLeaf */,
 				165824C61B6BABA300DF5EB2 /* GoldenLeafTests */,
