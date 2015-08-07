@@ -20,6 +20,9 @@
     IBOutlet UIView* view3;
     
     UIView* _camera;
+    UILabel* _snLabel;
+    
+    AVCaptureSession *session;
 }
 @end
 
@@ -43,7 +46,11 @@ static BOOL first = YES;
     float h = self.view.frame.size.height;
     float th = _tabBar.frame.size.height;
     _camera = [[UIView alloc] initWithFrame:CGRectMake(0, 0, w, h - th)];
+    _snLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 150, 300, 30)];
+    _snLabel.text = @"sn:";
+    _snLabel.textColor = [UIColor blackColor];
     [self.view addSubview:_camera];
+    [self.view addSubview:_snLabel];
 }
 
 - (void)setBorder:(UIView*)v {
@@ -53,54 +60,80 @@ static BOOL first = YES;
     v.layer.masksToBounds = YES;
 }
 
-- (IBAction)scan:(id)sender {
-    [self setupCaptureSession];
+- (IBAction)product:(id)sender {
+    [self stopSession];
 }
 
-- (void)setupCaptureSession
+- (IBAction)activity:(id)sender {
+    [self stopSession];
+}
+
+- (IBAction)scan:(id)sender {
+    [self startCaptureSession];
+    _camera.hidden = NO;
+    _snLabel.hidden = NO;
+}
+
+- (IBAction)mine:(id)sender {
+    [self stopSession];
+}
+
+- (IBAction)about:(id)sender {
+    [self stopSession];
+}
+
+- (void)startCaptureSession
 {
-    NSError *error = nil;
-    
-    // Create the session
-    AVCaptureSession *session = [[AVCaptureSession alloc] init];
-    
-    // Configure the session to produce lower resolution video frames, if your
-    // processing algorithm can cope. We'll specify medium quality for the
-    // chosen device.
-    session.sessionPreset = AVCaptureSessionPresetMedium;
-    
-    // Find a suitable AVCaptureDevice
-    AVCaptureDevice *device = [AVCaptureDevice
-                               defaultDeviceWithMediaType:AVMediaTypeVideo];
-    
-    // Create a device input with the device and add it to the session.
-    AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:device
-                                                                        error:&error];
-    if (!input) {
-        // Handling the error appropriately.
+    if (!session) {
+        NSError *error = nil;
+        
+        // Create the session
+        session = [[AVCaptureSession alloc] init];
+        
+        // Configure the session to produce lower resolution video frames, if your
+        // processing algorithm can cope. We'll specify medium quality for the
+        // chosen device.
+        session.sessionPreset = AVCaptureSessionPresetMedium;
+        
+        // Find a suitable AVCaptureDevice
+        AVCaptureDevice *device = [AVCaptureDevice
+                                   defaultDeviceWithMediaType:AVMediaTypeVideo];
+        
+        // Create a device input with the device and add it to the session.
+        AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:device
+                                                                            error:&error];
+        if (!input) {
+            // Handling the error appropriately.
+        }
+        [session addInput:input];
+        
+        // Create a VideoDataOutput and add it to the session
+        AVCaptureVideoDataOutput *output = [[AVCaptureVideoDataOutput alloc] init];
+        [session addOutput:output];
+        
+        // Configure your output.
+        dispatch_queue_t queue = dispatch_queue_create("myQueue", NULL);
+        [output setSampleBufferDelegate:self queue:queue];
+        
+        // Specify the pixel format
+        output.videoSettings =
+        [NSDictionary dictionaryWithObject:
+         [NSNumber numberWithInt:kCVPixelFormatType_32BGRA]
+                                    forKey:(id)kCVPixelBufferPixelFormatTypeKey];
+        
+        AVCaptureVideoPreviewLayer* previewLayer = [AVCaptureVideoPreviewLayer layerWithSession:session];
+        previewLayer.frame = _camera.bounds;
+        [_camera.layer addSublayer:previewLayer];
     }
-    [session addInput:input];
-    
-    // Create a VideoDataOutput and add it to the session
-    AVCaptureVideoDataOutput *output = [[AVCaptureVideoDataOutput alloc] init];
-    [session addOutput:output];
-    
-    // Configure your output.
-    dispatch_queue_t queue = dispatch_queue_create("myQueue", NULL);
-    [output setSampleBufferDelegate:self queue:queue];
-    
-    // Specify the pixel format
-    output.videoSettings =
-    [NSDictionary dictionaryWithObject:
-     [NSNumber numberWithInt:kCVPixelFormatType_32BGRA]
-                                forKey:(id)kCVPixelBufferPixelFormatTypeKey];
-    
-    AVCaptureVideoPreviewLayer* previewLayer = [AVCaptureVideoPreviewLayer layerWithSession:session];
-    previewLayer.frame = _camera.bounds;
-    [_camera.layer addSublayer:previewLayer];
     
     // Start the session running to start the flow of data
     [session startRunning];
+}
+
+- (void)stopSession {
+    [session stopRunning];
+    _camera.hidden = YES;
+    _snLabel.hidden = YES;
 }
 
 // Delegate routine that is called when a sample buffer was written
@@ -199,9 +232,13 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     
     //fuma_Bar2D_DoMatch(pData, sn);
     
-    NSString *astring = [NSString stringWithFormat:@"%s", sn];
+    NSString *astring = [NSString stringWithFormat:@"sn: %s", sn];
     
-    NSLog(@"sn:%@",astring);
+    NSLog(@"%@",astring);
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        _snLabel.text = astring;
+    });
     
 //    fuma_Bar2D_DestroyLib( );
     

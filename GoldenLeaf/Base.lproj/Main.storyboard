@@ -44,10 +44,23 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g2U-zh-9Ku">
+                                                <rect key="frame" x="0.0" y="0.0" width="75" height="78"/>
+                                                <state key="normal">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="about:" destination="BYZ-38-t0r" eventType="touchUpInside" id="WUN-Dn-ILQ"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
+                                            <constraint firstItem="g2U-zh-9Ku" firstAttribute="leading" secondItem="bRy-MB-h3k" secondAttribute="leading" id="1sV-KP-6eO"/>
+                                            <constraint firstAttribute="trailing" secondItem="g2U-zh-9Ku" secondAttribute="trailing" id="DIf-g0-614"/>
                                             <constraint firstItem="K1t-Qi-na7" firstAttribute="top" secondItem="bRy-MB-h3k" secondAttribute="top" constant="8" id="Dl0-o0-ZcF"/>
+                                            <constraint firstItem="g2U-zh-9Ku" firstAttribute="top" secondItem="bRy-MB-h3k" secondAttribute="top" id="FTo-87-qKY"/>
+                                            <constraint firstAttribute="bottom" secondItem="g2U-zh-9Ku" secondAttribute="bottom" id="JZM-Ta-dAM"/>
                                             <constraint firstAttribute="centerX" secondItem="K1t-Qi-na7" secondAttribute="centerX" id="THf-hI-WFt"/>
                                             <constraint firstAttribute="bottom" secondItem="xyw-YH-YAf" secondAttribute="bottom" constant="8" id="h1M-Pe-v6I"/>
                                             <constraint firstAttribute="centerX" secondItem="xyw-YH-YAf" secondAttribute="centerX" id="jX2-mJ-deG"/>
@@ -70,13 +83,26 @@
                                                     <constraint firstAttribute="width" constant="42" id="R2m-sJ-EaK"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3jh-FZ-YqG">
+                                                <rect key="frame" x="0.0" y="0.0" width="75" height="78"/>
+                                                <state key="normal">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="mine:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uVY-En-EY3"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="3jh-FZ-YqG" secondAttribute="bottom" id="0ED-gX-kN1"/>
+                                            <constraint firstItem="3jh-FZ-YqG" firstAttribute="leading" secondItem="vLh-cW-aT6" secondAttribute="leading" id="9Qt-09-sNU"/>
+                                            <constraint firstAttribute="trailing" secondItem="3jh-FZ-YqG" secondAttribute="trailing" id="EKl-kM-hPR"/>
                                             <constraint firstAttribute="bottom" secondItem="6hk-V4-GLP" secondAttribute="bottom" constant="8" id="IEz-PL-NrP"/>
+                                            <constraint firstItem="3jh-FZ-YqG" firstAttribute="top" secondItem="vLh-cW-aT6" secondAttribute="top" id="J3g-6c-4qU"/>
                                             <constraint firstItem="ch3-p1-hs6" firstAttribute="top" secondItem="vLh-cW-aT6" secondAttribute="top" constant="8" id="VzM-73-Ol0"/>
                                             <constraint firstAttribute="centerX" secondItem="ch3-p1-hs6" secondAttribute="centerX" id="Xcu-p6-lB8"/>
                                             <constraint firstAttribute="centerX" secondItem="6hk-V4-GLP" secondAttribute="centerX" id="dah-Bn-jfN"/>
@@ -99,11 +125,11 @@
                                                     <constraint firstAttribute="height" constant="21" id="S0r-di-P7T"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qLu-CI-43K">
-                                                <rect key="frame" x="-6" y="0.0" width="86" height="78"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qLu-CI-43K">
+                                                <rect key="frame" x="0.0" y="0.0" width="75" height="78"/>
                                                 <state key="normal">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -141,20 +167,33 @@
                                                     <constraint firstAttribute="height" constant="21" id="hbk-MH-mqy"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mDx-lo-zTJ">
+                                                <rect key="frame" x="0.0" y="0.0" width="75" height="78"/>
+                                                <state key="normal">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="activity:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3zq-eu-BIb"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="HgJ-D7-nLy" secondAttribute="bottom" constant="8" id="1pk-tf-ffh"/>
+                                            <constraint firstAttribute="bottom" secondItem="mDx-lo-zTJ" secondAttribute="bottom" id="VGo-IL-PbK"/>
                                             <constraint firstItem="AwQ-L5-od7" firstAttribute="top" secondItem="Jq4-uL-c35" secondAttribute="top" constant="8" id="WOf-jf-xEl"/>
                                             <constraint firstItem="AwQ-L5-od7" firstAttribute="top" secondItem="Jq4-uL-c35" secondAttribute="top" constant="9" id="bk2-wL-HjE"/>
                                             <constraint firstAttribute="centerX" secondItem="AwQ-L5-od7" secondAttribute="centerX" id="fAN-XU-1fv"/>
                                             <constraint firstAttribute="centerX" secondItem="HgJ-D7-nLy" secondAttribute="centerX" id="fPG-az-tnO"/>
                                             <constraint firstAttribute="centerX" secondItem="HgJ-D7-nLy" secondAttribute="centerX" id="nTY-Op-Fuj"/>
                                             <constraint firstAttribute="bottom" secondItem="HgJ-D7-nLy" secondAttribute="bottom" constant="8" id="plq-wm-yhH"/>
+                                            <constraint firstItem="mDx-lo-zTJ" firstAttribute="top" secondItem="Jq4-uL-c35" secondAttribute="top" id="sMC-6D-ViZ"/>
+                                            <constraint firstItem="mDx-lo-zTJ" firstAttribute="leading" secondItem="Jq4-uL-c35" secondAttribute="leading" id="v5d-T3-iqc"/>
                                             <constraint firstAttribute="centerX" secondItem="AwQ-L5-od7" secondAttribute="centerX" id="wEL-hg-KT9"/>
+                                            <constraint firstAttribute="trailing" secondItem="mDx-lo-zTJ" secondAttribute="trailing" id="yTH-ao-0gA"/>
                                         </constraints>
                                         <variation key="default">
                                             <mask key="constraints">
@@ -182,9 +221,18 @@
                                                     <constraint firstAttribute="height" constant="21" id="JMv-tz-iIX"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bl5-Eh-FlE">
+                                                <rect key="frame" x="0.0" y="0.0" width="75" height="78"/>
+                                                <state key="normal">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="product:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ovs-IU-re8"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -254,15 +302,15 @@
                                 <rect key="frame" x="0.0" y="67" width="375" height="86"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="您还未登录" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x1d-Jp-Idt">
-                                        <rect key="frame" x="74" y="17" width="98" height="21"/>
+                                        <rect key="frame" x="0.0" y="-67" width="65" height="16"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="请点击右上角登录键" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dEq-l2-HkI">
-                                        <rect key="frame" x="74" y="46" width="120" height="21"/>
+                                        <rect key="frame" x="0.0" y="-67" width="117" height="16"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow_up.png" translatesAutoresizingMaskIntoConstraints="NO" id="OTO-Mz-O01">
@@ -308,7 +356,7 @@
                                             <constraint firstAttribute="width" constant="110" id="oid-iG-YqU"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow.png" translatesAutoresizingMaskIntoConstraints="NO" id="TU0-Ew-JeA">
@@ -352,7 +400,7 @@
                                             <constraint firstAttribute="width" constant="110" id="m9E-46-lFL"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow.png" translatesAutoresizingMaskIntoConstraints="NO" id="HWl-Uy-zGQ">
@@ -388,7 +436,7 @@
                                             <constraint firstAttribute="height" constant="21" id="CVS-YV-gHX"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow.png" translatesAutoresizingMaskIntoConstraints="NO" id="0lc-dL-kiS">
