@@ -21,6 +21,7 @@
     
     UIView* _camera;
     UILabel* _snLabel;
+    IBOutlet UIView* _about;
     
     AVCaptureSession *session;
 }
@@ -51,6 +52,8 @@ static BOOL first = YES;
     _snLabel.textColor = [UIColor blackColor];
     [self.view addSubview:_camera];
     [self.view addSubview:_snLabel];
+    _camera.hidden = YES;
+    _snLabel.hidden = YES;
 }
 
 - (void)setBorder:(UIView*)v {
@@ -61,25 +64,30 @@ static BOOL first = YES;
 }
 
 - (IBAction)product:(id)sender {
+    _about.hidden = YES;
     [self stopSession];
 }
 
 - (IBAction)activity:(id)sender {
+    _about.hidden = YES;
     [self stopSession];
 }
 
 - (IBAction)scan:(id)sender {
+    _about.hidden = YES;
     [self startCaptureSession];
     _camera.hidden = NO;
     _snLabel.hidden = NO;
 }
 
 - (IBAction)mine:(id)sender {
+    _about.hidden = YES;
     [self stopSession];
 }
 
 - (IBAction)about:(id)sender {
     [self stopSession];
+    _about.hidden = NO;
 }
 
 - (void)startCaptureSession
