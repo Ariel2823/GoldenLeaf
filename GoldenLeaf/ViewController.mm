@@ -9,7 +9,9 @@
 #import <AVFoundation/AVFoundation.h>
 
 #import "ViewController.h"
+#if !TARGET_IPHONE_SIMULATOR
 #import "FumarIOS2.h"
+#endif
 
 @interface ViewController ()
 {
@@ -197,7 +199,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 
 - (void)testImage:(UIImage*)image;
 {
-    
+#if !TARGET_IPHONE_SIMULATOR
     NSLog(@"ver:%@",fuma_Bar2D_GetVersion());
     
     if (!image) {
@@ -253,7 +255,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     
     //free(pData);
     
-    
+#endif
     
     
 }
