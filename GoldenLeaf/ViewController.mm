@@ -21,6 +21,8 @@
     IBOutlet UIView* view2;
     IBOutlet UIView* view3;
     
+    IBOutlet UIWebView* _webView;
+    
     UIView* _camera;
     UILabel* _snLabel;
     IBOutlet UIView* _about;
@@ -30,8 +32,6 @@
 @end
 
 @implementation ViewController
-
-static BOOL first = YES;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -54,8 +54,6 @@ static BOOL first = YES;
     _snLabel.textColor = [UIColor blackColor];
     [self.view addSubview:_camera];
     [self.view addSubview:_snLabel];
-    _camera.hidden = YES;
-    _snLabel.hidden = YES;
 }
 
 - (void)setBorder:(UIView*)v {
@@ -65,30 +63,41 @@ static BOOL first = YES;
     v.layer.masksToBounds = YES;
 }
 
-- (IBAction)product:(id)sender {
-    _about.hidden = YES;
+- (void)hideAll {
+    _camera.hidden = YES;
+    _snLabel.hidden = YES;
+    _webView.hidden = YES;
     [self stopSession];
+    _about.hidden = YES;
+}
+
+- (IBAction)product:(id)sender {
+    [self hideAll];
+    _webView.hidden = NO;
+    NSURL *url = [NSURL URLWithString:@"http://www.baidu.com"];
+    [_webView loadRequest:[NSURLRequest requestWithURL:url]];
 }
 
 - (IBAction)activity:(id)sender {
-    _about.hidden = YES;
-    [self stopSession];
+    [self hideAll];
+    _webView.hidden = NO;
+    NSURL *url = [NSURL URLWithString:@"http://news.baidu.com"];
+    [_webView loadRequest:[NSURLRequest requestWithURL:url]];
 }
 
 - (IBAction)scan:(id)sender {
-    _about.hidden = YES;
+    [self hideAll];
     [self startCaptureSession];
     _camera.hidden = NO;
     _snLabel.hidden = NO;
 }
 
 - (IBAction)mine:(id)sender {
-    _about.hidden = YES;
-    [self stopSession];
+    [self hideAll];
 }
 
 - (IBAction)about:(id)sender {
-    [self stopSession];
+    [self hideAll];
     _about.hidden = NO;
 }
 
@@ -114,6 +123,7 @@ static BOOL first = YES;
                                                                             error:&error];
         if (!input) {
             // Handling the error appropriately.
+            return;
         }
         [session addInput:input];
         
