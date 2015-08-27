@@ -16,6 +16,8 @@
 @interface ViewController ()
 {
     IBOutlet UIView* _tabBar;
+    IBOutlet UIView* _popup;
+    NSArray* _popMenuURLs;
     
     IBOutlet UIView* view1;
     IBOutlet UIView* view2;
@@ -23,8 +25,9 @@
     
     IBOutlet UIWebView* _webView;
     
-    UIView* _camera;
-    UILabel* _snLabel;
+    IBOutlet UIView* _camera;
+    IBOutlet UILabel* _snLabel;
+    
     IBOutlet UIView* _about;
     
     AVCaptureSession *session;
@@ -37,23 +40,15 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
+    _popMenuURLs = @[@"http://www.baidu.com",
+                     @"http://www.163.com"];
+    
     [self setBorder:view1];
     [self setBorder:view2];
     [self setBorder:view3];
     
+    _popup.hidden = YES;
 //    [self testImage];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    float w = self.view.frame.size.width;
-    float h = self.view.frame.size.height;
-    float th = _tabBar.frame.size.height;
-    _camera = [[UIView alloc] initWithFrame:CGRectMake(0, 0, w, h - th)];
-    _snLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 150, 300, 30)];
-    _snLabel.text = @"sn:";
-    _snLabel.textColor = [UIColor blackColor];
-    [self.view addSubview:_camera];
-    [self.view addSubview:_snLabel];
 }
 
 - (void)setBorder:(UIView*)v {
@@ -69,6 +64,17 @@
     _webView.hidden = YES;
     [self stopSession];
     _about.hidden = YES;
+}
+
+- (IBAction)topLeft:(id)sender {
+    _popup.hidden = !_popup.hidden;
+}
+
+- (IBAction)popMenuClicked:(id)sender {
+    NSString* url = _popMenuURLs[((UIButton*)sender).tag];
+    _webView.hidden = NO;
+    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
+    _popup.hidden = YES;
 }
 
 - (IBAction)product:(id)sender {
