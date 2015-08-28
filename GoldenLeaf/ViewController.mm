@@ -17,6 +17,7 @@
 {
     IBOutlet UIView* _tabBar;
     IBOutlet UIView* _popup;
+    NSArray* _popMenuTexts;
     NSArray* _popMenuURLs;
     
     IBOutlet UIView* view1;
@@ -40,7 +41,26 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
+    _popMenuTexts = @[@"产品中心",
+                      @"积分商城",
+                      @"中烟风采",
+                      @"风土人情",
+                      @"品牌故事",
+                      @"活动专区",
+                      @"会员专区",
+                      @"防伪验证",
+                      @"问卷调查",
+                      @"留言反馈"];
+    
     _popMenuURLs = @[@"http://www.baidu.com",
+                     @"http://www.163.com",
+                     @"http://www.163.com",
+                     @"http://www.163.com",
+                     @"http://www.baidu.com",
+                     @"http://www.163.com",
+                     @"http://www.163.com",
+                     @"http://www.163.com",
+                     @"http://www.baidu.com",
                      @"http://www.163.com"];
     
     [self setBorder:view1];
@@ -68,13 +88,6 @@
 
 - (IBAction)topLeft:(id)sender {
     _popup.hidden = !_popup.hidden;
-}
-
-- (IBAction)popMenuClicked:(id)sender {
-    NSString* url = _popMenuURLs[((UIButton*)sender).tag];
-    _webView.hidden = NO;
-    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
-    _popup.hidden = YES;
 }
 
 - (IBAction)product:(id)sender {
@@ -107,6 +120,49 @@
     _about.hidden = NO;
 }
 
+#pragma mark Popup
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return _popMenuURLs.count;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 50;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *CMainCell = @"CMainCell";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CMainCell];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault  reuseIdentifier: CMainCell];
+        cell.contentView.backgroundColor = [UIColor colorWithWhite:0.22 alpha:1];
+        float cw = tableView.frame.size.width;
+        CGRect f = CGRectMake(8, 8, cw - 16, 42);
+        UILabel* l = [[UILabel alloc] initWithFrame:f];
+        l.layer.borderWidth=1;
+        l.layer.borderColor = [UIColor colorWithWhite:0.39 alpha:1].CGColor;
+        l.layer.cornerRadius = 3;
+        l.layer.masksToBounds = YES;
+        l.backgroundColor = [UIColor colorWithWhite:0.39 alpha:1];
+        l.textAlignment = NSTextAlignmentCenter;
+        l.textColor = [UIColor whiteColor];
+        [cell.contentView addSubview:l];
+    }
+    
+    UILabel* l = (UILabel*)cell.contentView.subviews[0];
+    l.text = _popMenuTexts[indexPath.row];
+    
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSString* url = _popMenuURLs[indexPath.row];
+    _webView.hidden = NO;
+    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
+    _popup.hidden = YES;
+}
+
+#pragma mark Camera
 - (void)startCaptureSession
 {
     if (!session) {
