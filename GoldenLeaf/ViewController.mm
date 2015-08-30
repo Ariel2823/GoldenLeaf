@@ -13,6 +13,8 @@
 #import "FumarIOS2.h"
 #endif
 
+#import "LoginViewController.h"
+
 @interface ViewController ()
 {
     IBOutlet UIView* _tabBar;
@@ -39,7 +41,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    
+    _webView.delegate = self;
     
     _popMenuTexts = @[@"产品中心",
                       @"积分商城",
@@ -118,6 +121,11 @@
 - (IBAction)about:(id)sender {
     [self hideAll];
     _about.hidden = NO;
+}
+
+- (IBAction)login:(id)sender {
+    LoginViewController* vc = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:[NSBundle mainBundle]];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark Popup
@@ -330,6 +338,23 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 #endif
     
     
+}
+
+#pragma mark WebView Delegate
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    return YES;
+}
+
+- (void)webViewDidStartLoad:(UIWebView *)webView {
+    
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+    NSLog(@"Web page loaded");
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
+    NSLog(@"Web page failed to load: %@", error.description);
 }
 
 @end

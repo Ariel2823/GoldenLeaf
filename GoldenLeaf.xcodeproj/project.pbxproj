@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		162C841A1B92919B00155BE1 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 162C84181B92919B00155BE1 /* RegisterViewController.m */; };
+		162C841B1B92919B00155BE1 /* RegisterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 162C84191B92919B00155BE1 /* RegisterViewController.xib */; };
+		162C841F1B92989000155BE1 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 162C841D1B92989000155BE1 /* LoginViewController.m */; };
+		162C84201B92989000155BE1 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 162C841E1B92989000155BE1 /* LoginViewController.xib */; };
 		165824B01B6BABA300DF5EB2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 165824AF1B6BABA300DF5EB2 /* main.m */; };
 		165824B31B6BABA300DF5EB2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 165824B21B6BABA300DF5EB2 /* AppDelegate.m */; };
 		165824B61B6BABA300DF5EB2 /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 165824B51B6BABA300DF5EB2 /* ViewController.mm */; };
@@ -54,6 +58,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		162C84171B92919B00155BE1 /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
+		162C84181B92919B00155BE1 /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
+		162C84191B92919B00155BE1 /* RegisterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RegisterViewController.xib; sourceTree = "<group>"; };
+		162C841C1B92989000155BE1 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		162C841D1B92989000155BE1 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		162C841E1B92989000155BE1 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		165824AA1B6BABA300DF5EB2 /* GoldenLeaf.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoldenLeaf.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		165824AE1B6BABA300DF5EB2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		165824AF1B6BABA300DF5EB2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -151,6 +161,12 @@
 				165824BA1B6BABA300DF5EB2 /* Images.xcassets */,
 				165824BC1B6BABA300DF5EB2 /* LaunchScreen.xib */,
 				165824AD1B6BABA300DF5EB2 /* Supporting Files */,
+				162C84171B92919B00155BE1 /* RegisterViewController.h */,
+				162C84181B92919B00155BE1 /* RegisterViewController.m */,
+				162C84191B92919B00155BE1 /* RegisterViewController.xib */,
+				162C841C1B92989000155BE1 /* LoginViewController.h */,
+				162C841D1B92989000155BE1 /* LoginViewController.m */,
+				162C841E1B92989000155BE1 /* LoginViewController.xib */,
 			);
 			path = GoldenLeaf;
 			sourceTree = "<group>";
@@ -320,6 +336,7 @@
 				165824F51B6BABBB00DF5EB2 /* 222.png in Resources */,
 				165825031B6BBB9000DF5EB2 /* arrow_up.png in Resources */,
 				165824FC1B6BABBB00DF5EB2 /* bar.png in Resources */,
+				162C84201B92989000155BE1 /* LoginViewController.xib in Resources */,
 				165824F21B6BABBB00DF5EB2 /* 2.png in Resources */,
 				165824EA1B6BABBB00DF5EB2 /* 10.png in Resources */,
 				165824F61B6BABBB00DF5EB2 /* 22new.png in Resources */,
@@ -340,6 +357,7 @@
 				165824F81B6BABBB00DF5EB2 /* 444.png in Resources */,
 				165824F01B6BABBB00DF5EB2 /* 123.png in Resources */,
 				165824FA1B6BABBB00DF5EB2 /* 55555.png in Resources */,
+				162C841B1B92919B00155BE1 /* RegisterViewController.xib in Resources */,
 				165824ED1B6BABBB00DF5EB2 /* 1111111.png in Resources */,
 				165824F71B6BABBB00DF5EB2 /* 333.png in Resources */,
 				165824BE1B6BABA300DF5EB2 /* LaunchScreen.xib in Resources */,
@@ -364,6 +382,8 @@
 				165824B61B6BABA300DF5EB2 /* ViewController.mm in Sources */,
 				165824B31B6BABA300DF5EB2 /* AppDelegate.m in Sources */,
 				165824B01B6BABA300DF5EB2 /* main.m in Sources */,
+				162C841A1B92919B00155BE1 /* RegisterViewController.m in Sources */,
+				162C841F1B92989000155BE1 /* LoginViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
