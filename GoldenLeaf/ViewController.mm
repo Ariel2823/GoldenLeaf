@@ -8,6 +8,7 @@
 
 #import <AVFoundation/AVFoundation.h>
 
+#import "AFNetworking.h"
 #import "ViewController.h"
 #if !TARGET_IPHONE_SIMULATOR
 #import "FumarIOS2.h"
@@ -15,12 +16,17 @@
 
 #import "LoginViewController.h"
 
+#define HOME        "http://211.149.158.43:4010/WebService1.asmx"
+
 @interface ViewController ()
 {
     IBOutlet UIView* _tabBar;
     IBOutlet UIView* _popup;
+    IBOutlet UITableView* _popTable;
     NSArray* _popMenuTexts;
-    NSArray* _popMenuURLs;
+    BOOL _readingMenuBuf;
+    NSMutableString* _popMenuURLBuffer;
+    NSMutableArray* _popMenuURLs;
     
     IBOutlet UIView* view1;
     IBOutlet UIView* view2;
@@ -55,16 +61,8 @@
                       @"问卷调查",
                       @"留言反馈"];
     
-    _popMenuURLs = @[@"http://www.baidu.com",
-                     @"http://www.163.com",
-                     @"http://www.163.com",
-                     @"http://www.163.com",
-                     @"http://www.baidu.com",
-                     @"http://www.163.com",
-                     @"http://www.163.com",
-                     @"http://www.163.com",
-                     @"http://www.baidu.com",
-                     @"http://www.163.com"];
+    _popMenuURLBuffer = [NSMutableString new];
+    _popMenuURLs = [NSMutableArray new];
     
     [self setBorder:view1];
     [self setBorder:view2];
@@ -72,6 +70,41 @@
     
     _popup.hidden = YES;
 //    [self testImage];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    NSString *soapMessage =
+    [NSString stringWithFormat:
+     @"<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+     "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">"
+     "<soap:Body>"
+     "<GetMenu xmlns=\"http://tempuri.org/\" />"
+     "</soap:Body>"
+     "</soap:Envelope>"
+     ];
+    NSURL *url = [NSURL URLWithString:@HOME];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    
+    NSString *msgLength = [NSString stringWithFormat:@"%lu", (unsigned long)[soapMessage length]];
+    
+    [request addValue: @"text/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [request addValue: msgLength forHTTPHeaderField:@"Content-Length"];
+    
+    [request setHTTPMethod:@"POST"];
+    [request setHTTPBody: [soapMessage dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    operation.responseSerializer = [AFXMLParserResponseSerializer serializer];
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSXMLParser* parser = responseObject;
+        parser.delegate = self;
+        [parser parse];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
+    
+    [operation start];
 }
 
 - (void)setBorder:(UIView*)v {
@@ -355,6 +388,41 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
     NSLog(@"Web page failed to load: %@", error.description);
+}
+
+#pragma mark XMLParser Delegate
+- (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
+    attributes:(NSDictionary *)attributeDict
+{
+    NSLog(@"发现节点:%@", elementName);
+    if ([elementName isEqualToString:@"GetMenuResult"]) {
+        _readingMenuBuf = YES;
+        _popMenuURLBuffer = [NSMutableString new];
+    }
+}
+
+/* 当解析器找到开始标记和结束标记之间的字符时，调用这个方法解析当前节点的所有字符 */
+- (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
+{
+    if (_readingMenuBuf) {
+        [_popMenuURLBuffer appendString:string];
+    }
+}
+
+/* 当解析器对象遇到xml的结束标记时，调用这个方法完成解析该节点 */
+- (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
+{
+    if ([elementName isEqualToString:@"GetMenuResult"]) {
+        [_popMenuURLs removeAllObjects];
+        NSLog(@"%@", _popMenuURLBuffer);
+        NSError* e;
+        NSData* data = [_popMenuURLBuffer dataUsingEncoding:NSUTF8StringEncoding];
+        NSArray *result = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&e];
+        for (NSDictionary* item in result) {
+            [_popMenuURLs addObject:item[@"MenuUrl"]];
+        }
+        [_popTable reloadData];
+    }
 }
 
 @end
