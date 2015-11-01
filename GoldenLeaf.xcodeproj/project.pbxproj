@@ -112,6 +112,7 @@
 		160D4FFE1BE251100099B0C2 /* UIRefreshControl+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIRefreshControl+AFNetworking.m"; sourceTree = "<group>"; };
 		160D4FFF1BE251100099B0C2 /* UIWebView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+AFNetworking.h"; sourceTree = "<group>"; };
 		160D50001BE251100099B0C2 /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
+		161F1C011BE5CDAE0017CC8F /* Const.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Const.h; sourceTree = "<group>"; };
 		162C84171B92919B00155BE1 /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
 		162C84181B92919B00155BE1 /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
 		162C84191B92919B00155BE1 /* RegisterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RegisterViewController.xib; sourceTree = "<group>"; };
@@ -274,6 +275,7 @@
 				162C841C1B92989000155BE1 /* LoginViewController.h */,
 				162C841D1B92989000155BE1 /* LoginViewController.m */,
 				162C841E1B92989000155BE1 /* LoginViewController.xib */,
+				161F1C011BE5CDAE0017CC8F /* Const.h */,
 			);
 			path = GoldenLeaf;
 			sourceTree = "<group>";

@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LoginViewController : UIViewController
-
+@interface LoginViewController : UIViewController <NSXMLParserDelegate>
+{
+    __weak IBOutlet UITextField* tfUserName;
+    __weak IBOutlet UITextField* tfPwd;
+}
 @end

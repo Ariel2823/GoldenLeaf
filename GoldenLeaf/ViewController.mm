@@ -9,14 +9,13 @@
 #import <AVFoundation/AVFoundation.h>
 
 #import "AFNetworking.h"
+#import "Const.h"
 #import "ViewController.h"
 #if !TARGET_IPHONE_SIMULATOR
 #import "FumarIOS2.h"
 #endif
 
 #import "LoginViewController.h"
-
-#define HOME        "http://211.149.158.43:4010/WebService1.asmx"
 
 @interface ViewController ()
 {
