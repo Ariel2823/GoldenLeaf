@@ -27,6 +27,8 @@
     BOOL _readingMenuBuf;
     NSMutableString* _popMenuURLBuffer;
     NSMutableArray* _popMenuURLs;
+    NSString* _productURL;
+    NSString* _activityURL;
     
     IBOutlet UIView* view1;
     IBOutlet UIView* view2;
@@ -44,6 +46,8 @@
 @end
 
 @implementation ViewController
+
+static bool first = true;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -77,11 +81,11 @@
     NSString *soapMessage =
     [NSString stringWithFormat:
      @"<?xml version=\"1.0\" encoding=\"utf-8\"?>"
-     "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">"
-     "<soap:Body>"
+     "<soap12:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap12=\"http://schemas.xmlsoap.org/soap/envelope/\">"
+     "<soap12:Body>"
      "<GetMenu xmlns=\"http://tempuri.org/\" />"
-     "</soap:Body>"
-     "</soap:Envelope>"
+     "</soap12:Body>"
+     "</soap12:Envelope>"
      ];
     NSURL *url = [NSURL URLWithString:@HOME];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
@@ -129,14 +133,14 @@
 - (IBAction)product:(id)sender {
     [self hideAll];
     _webView.hidden = NO;
-    NSURL *url = [NSURL URLWithString:@"http://www.baidu.com"];
+    NSURL *url = [NSURL URLWithString:_productURL];
     [_webView loadRequest:[NSURLRequest requestWithURL:url]];
 }
 
 - (IBAction)activity:(id)sender {
     [self hideAll];
     _webView.hidden = NO;
-    NSURL *url = [NSURL URLWithString:@"http://news.baidu.com"];
+    NSURL *url = [NSURL URLWithString:_activityURL];
     [_webView loadRequest:[NSURLRequest requestWithURL:url]];
 }
 
@@ -419,7 +423,14 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         NSData* data = [_popMenuURLBuffer dataUsingEncoding:NSUTF8StringEncoding];
         NSArray *result = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&e];
         for (NSDictionary* item in result) {
-            [_popMenuURLs addObject:item[@"MenuUrl"]];
+            NSString* name = [item[@"MenuName"] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+            NSString* url = item[@"MenuUrl"];
+            [_popMenuURLs addObject:url];
+            if ([name isEqualToString:@"产品中心"]) {
+                _productURL = url;
+            } else if ([name isEqualToString:@"活动专区"]) {
+                _activityURL = url;
+            }
         }
         [_popTable reloadData];
     }
