@@ -76,9 +76,6 @@ static bool first = true;
     _popup.hidden = YES;
 //    [self testImage];
     
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    
     NSString *soapMessage =
     [NSString stringWithFormat:
      @"<?xml version=\"1.0\" encoding=\"utf-8\"?>"
@@ -88,28 +85,7 @@ static bool first = true;
      "</soap12:Body>"
      "</soap12:Envelope>"
      ];
-    NSURL *url = [NSURL URLWithString:@HOME];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    
-    NSString *msgLength = [NSString stringWithFormat:@"%lu", (unsigned long)[soapMessage length]];
-    
-    [request addValue: @"text/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [request addValue: msgLength forHTTPHeaderField:@"Content-Length"];
-    
-    [request setHTTPMethod:@"POST"];
-    [request setHTTPBody: [soapMessage dataUsingEncoding:NSUTF8StringEncoding]];
-    
-    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-    operation.responseSerializer = [AFXMLParserResponseSerializer serializer];
-    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSXMLParser* parser = responseObject;
-        parser.delegate = self;
-        [parser parse];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
-    }];
-    
-    [operation start];
+    [self soap:soapMessage];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -178,9 +154,6 @@ static bool first = true;
 }
 
 - (IBAction)myInfo:(id)sender {
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString* userName = [userDefaults objectForKey:@"userName"];
     NSString *soapMessage =
@@ -196,28 +169,7 @@ static bool first = true;
      "</soap12:Body>"
      "</soap12:Envelope>", userName
      ];
-    NSURL *url = [NSURL URLWithString:@HOME];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    
-    NSString *msgLength = [NSString stringWithFormat:@"%lu", (unsigned long)[soapMessage length]];
-    
-    [request addValue: @"text/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [request addValue: msgLength forHTTPHeaderField:@"Content-Length"];
-    
-    [request setHTTPMethod:@"POST"];
-    [request setHTTPBody: [soapMessage dataUsingEncoding:NSUTF8StringEncoding]];
-    
-    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-    operation.responseSerializer = [AFXMLParserResponseSerializer serializer];
-    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSXMLParser* parser = responseObject;
-        parser.delegate = self;
-        [parser parse];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
-    }];
-    
-    [operation start];
+    [self soap:soapMessage];
 }
 
 - (IBAction)login:(id)sender {
@@ -331,8 +283,7 @@ static bool first = true;
 }
 
 // Delegate routine that is called when a sample buffer was written
-- (void)captureOutput:(AVCaptureOutput *)captureOutput
-didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
+- (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
        fromConnection:(AVCaptureConnection *)connection
 {
     // Create a UIImage from the sample buffer data
@@ -384,7 +335,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 - (void)testImage:(UIImage*)image;
 {
 #if !TARGET_IPHONE_SIMULATOR
-    NSLog(@"ver:%@",fuma_Bar2D_GetVersion());
+//    NSLog(@"ver:%@",fuma_Bar2D_GetVersion());
     
     if (!image) {
         NSURL *url=[NSURL URLWithString:@"http://115.29.39.16/1.png"];
@@ -413,25 +364,42 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     
     for (int k=0; k<1; k++)
     {
-        CFAbsoluteTime start = CFAbsoluteTimeGetCurrent();
+//        CFAbsoluteTime start = CFAbsoluteTimeGetCurrent();
         
         // do something you want to measure
         fuma_Bar2D_DoMatch(image, sn);
         
-        CFAbsoluteTime end = CFAbsoluteTimeGetCurrent();
-        NSLog(@"[%d], operation took %2.5f seconds", k, end-start);
+//        CFAbsoluteTime end = CFAbsoluteTimeGetCurrent();
+//        NSLog(@"[%d], operation took %2.5f seconds", k, end-start);
         
         [NSThread sleepForTimeInterval:0.01f];
     }
     
     //fuma_Bar2D_DoMatch(pData, sn);
     
-    NSString *astring = [NSString stringWithFormat:@"sn: %s", sn];
+    NSString *astring = [NSString stringWithFormat:@"%s", sn];
     
-    NSLog(@"%@",astring);
+    if (astring.length > 0)
+        NSLog(@"sn: %s",sn);
     
     dispatch_async(dispatch_get_main_queue(), ^{
         _snLabel.text = astring;
+        if (astring.length > 0) {
+            NSString *soapMessage =
+            [NSString stringWithFormat:
+             @"<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+             "<soap12:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap12=\"http://schemas.xmlsoap.org/soap/envelope/\">"
+             "<soap12:Body>"
+             "<selectsjsm xmlns=\"http://tempuri.org/\" >"
+             "<tmewms>"
+             "%@"
+             "</tmewms>"
+             "</selectsjsm>"
+             "</soap12:Body>"
+             "</soap12:Envelope>", astring
+             ];
+            [self soap:soapMessage];
+        }
     });
     
 //    fuma_Bar2D_DestroyLib( );
@@ -502,6 +470,35 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         }
         [_popTable reloadData];
     }
+}
+
+#pragma mark SOAP
+- (void)soap :(NSString*)soapMessage {
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+
+    NSURL *url = [NSURL URLWithString:@HOME];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    
+    NSString *msgLength = [NSString stringWithFormat:@"%lu", (unsigned long)[soapMessage length]];
+    
+    [request addValue: @"text/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [request addValue: msgLength forHTTPHeaderField:@"Content-Length"];
+    
+    [request setHTTPMethod:@"POST"];
+    [request setHTTPBody: [soapMessage dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    operation.responseSerializer = [AFXMLParserResponseSerializer serializer];
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSXMLParser* parser = responseObject;
+        parser.delegate = self;
+        [parser parse];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", [error localizedDescription]);
+    }];
+    
+    [operation start];
 }
 
 @end
