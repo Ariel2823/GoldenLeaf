@@ -122,6 +122,15 @@
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
 {
     NSLog(@"found characters:%@", string);
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    if ([string isEqualToString:@"true"]) {
+        NSLog(@"Login success");
+        [userDefaults setObject:@"true" forKey:@"login"];
+        [self back:nil];
+    } else {
+        [userDefaults setObject:@"false" forKey:@"login"];
+    }
+    [userDefaults synchronize];
 }
 
 /* 当解析器对象遇到xml的结束标记时，调用这个方法完成解析该节点 */

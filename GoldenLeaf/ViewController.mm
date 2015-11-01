@@ -39,6 +39,8 @@
     IBOutlet UILabel* _snLabel;
     
     IBOutlet UIView* _about;
+    IBOutlet UIView* _loginHint;
+    IBOutlet UIButton* _loginButton;
     
     AVCaptureSession *session;
 }
@@ -110,6 +112,14 @@ static bool first = true;
     [operation start];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString* login = [userDefaults objectForKey:@"login"];
+    _loginHint.hidden = [login isEqualToString:@"true"];
+    [_loginButton setTitle:(_loginHint.hidden ? @"登出" : @"登录") forState:UIControlStateNormal];
+}
+
 - (void)setBorder:(UIView*)v {
     v.layer.borderWidth=1;
     v.layer.borderColor = [UIColor blackColor].CGColor;
@@ -160,8 +170,15 @@ static bool first = true;
 }
 
 - (IBAction)login:(id)sender {
-    LoginViewController* vc = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:[NSBundle mainBundle]];
-    [self.navigationController pushViewController:vc animated:YES];
+    if (_loginHint.hidden) {
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        [userDefaults removeObjectForKey:@"login"];
+        [_loginButton setTitle:@"登录" forState:UIControlStateNormal];
+        _loginHint.hidden = NO;
+    } else {
+        LoginViewController* vc = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:[NSBundle mainBundle]];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 #pragma mark Popup

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="LIX-jE-wZs">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="LIX-jE-wZs">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
@@ -794,6 +794,8 @@
                     <connections>
                         <outlet property="_about" destination="YmK-9k-H8E" id="AUF-Hi-e3h"/>
                         <outlet property="_camera" destination="Pzz-JY-M1r" id="8er-Jt-a7U"/>
+                        <outlet property="_loginButton" destination="70Y-1P-QnC" id="dd7-s3-jEv"/>
+                        <outlet property="_loginHint" destination="Qhs-vO-jKy" id="cJg-yo-ari"/>
                         <outlet property="_popTable" destination="oSo-VF-n5L" id="dSP-hO-qjs"/>
                         <outlet property="_popup" destination="pif-wU-7ce" id="4lg-rj-2g9"/>
                         <outlet property="_snLabel" destination="sHY-WS-CSR" id="xrN-VQ-D0V"/>
