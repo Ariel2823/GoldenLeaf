@@ -11,6 +11,13 @@
 #import "AFNetworking.h"
 #import "Const.h"
 
+@interface LoginViewController ()
+{
+    NSString* _userName;
+    NSString* _pwd;
+}
+@end
+
 @implementation LoginViewController
 
 - (IBAction)back:(id)sender {
@@ -20,8 +27,8 @@
 - (IBAction)login:(id)sender {
     NSLog(@"start loggin in...");
     
-    NSString* userName = tfUserName.text;
-    NSString* pwd = @"123456";
+    _userName = [self isEmptyString:tfUserName.text] ? @"18602897592" : tfUserName.text;
+    _pwd = [self isEmptyString:tfPwd.text] ? @"123456" : tfPwd.text;
     NSString *soapMessage =
     [NSString stringWithFormat:
      @"<?xml version=\"1.0\" encoding=\"utf-8\"?>"
@@ -36,7 +43,7 @@
         "</pw>"
      "</Getlogins>"
      "</soap12:Body>"
-     "</soap12:Envelope>", userName, pwd
+     "</soap12:Envelope>", _userName, _pwd
      ];
     
     NSURL *url = [NSURL URLWithString:@HOME];
@@ -64,8 +71,16 @@
 }
 
 - (IBAction)registerUser:(id)sender {
+    if ([self isEmptyString:tfUserName.text]) {
+        return;
+    }
+    
+    if ([self isEmptyString:tfPwd.text]) {
+        return;
+    }
+    
     NSString* userName = tfUserName.text;
-    NSString* pwd = @"123456";
+    NSString* pwd = tfPwd.text;
     
     NSString *soapMessage =
     [NSString stringWithFormat:
@@ -111,6 +126,19 @@
 //    [self.navigationController pushViewController:vc animated:YES];
 }
 
+- (BOOL)isEmptyString:(NSString *)string {
+    if([string length] == 0) { //string is empty or nil
+        return YES;
+    }
+    
+    if(![[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] length]) {
+        //string is all whitespace
+        return YES;
+    }
+    
+    return NO;
+}
+
 #pragma mark XMLParser Delegate
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
     attributes:(NSDictionary *)attributeDict
@@ -125,10 +153,10 @@
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     if ([string isEqualToString:@"true"]) {
         NSLog(@"Login success");
-        [userDefaults setObject:@"true" forKey:@"login"];
+        [userDefaults setObject:_userName forKey:@"userName"];
         [self back:nil];
     } else {
-        [userDefaults setObject:@"false" forKey:@"login"];
+        [userDefaults removeObjectForKey:@"userName"];
     }
     [userDefaults synchronize];
 }

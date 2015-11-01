@@ -115,8 +115,8 @@ static bool first = true;
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSString* login = [userDefaults objectForKey:@"login"];
-    _loginHint.hidden = [login isEqualToString:@"true"];
+    NSString* userName = [userDefaults objectForKey:@"userName"];
+    _loginHint.hidden = userName != nil;
     [_loginButton setTitle:(_loginHint.hidden ? @"登出" : @"登录") forState:UIControlStateNormal];
 }
 
@@ -169,10 +169,61 @@ static bool first = true;
     _about.hidden = NO;
 }
 
+- (IBAction)myNotification:(id)sender {
+    
+}
+
+- (IBAction)myMessage:(id)sender {
+    
+}
+
+- (IBAction)myInfo:(id)sender {
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString* userName = [userDefaults objectForKey:@"userName"];
+    NSString *soapMessage =
+    [NSString stringWithFormat:
+     @"<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+     "<soap12:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap12=\"http://schemas.xmlsoap.org/soap/envelope/\">"
+     "<soap12:Body>"
+     "<GetUser xmlns=\"http://tempuri.org/\" >"
+     "<usernmae>"
+     "%@"
+     "</usernmae>"
+     "</GetUser>"
+     "</soap12:Body>"
+     "</soap12:Envelope>", userName
+     ];
+    NSURL *url = [NSURL URLWithString:@HOME];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    
+    NSString *msgLength = [NSString stringWithFormat:@"%lu", (unsigned long)[soapMessage length]];
+    
+    [request addValue: @"text/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [request addValue: msgLength forHTTPHeaderField:@"Content-Length"];
+    
+    [request setHTTPMethod:@"POST"];
+    [request setHTTPBody: [soapMessage dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    operation.responseSerializer = [AFXMLParserResponseSerializer serializer];
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSXMLParser* parser = responseObject;
+        parser.delegate = self;
+        [parser parse];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
+    
+    [operation start];
+}
+
 - (IBAction)login:(id)sender {
     if (_loginHint.hidden) {
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        [userDefaults removeObjectForKey:@"login"];
+        [userDefaults removeObjectForKey:@"userName"];
         [_loginButton setTitle:@"登录" forState:UIControlStateNormal];
         _loginHint.hidden = NO;
     } else {
@@ -424,6 +475,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 /* 当解析器找到开始标记和结束标记之间的字符时，调用这个方法解析当前节点的所有字符 */
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
 {
+    NSLog(@"found character: %@", string);
     if (_readingMenuBuf) {
         [_popMenuURLBuffer appendString:string];
     }
