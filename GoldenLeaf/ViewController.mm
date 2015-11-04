@@ -16,6 +16,7 @@
 #endif
 
 #import "LoginViewController.h"
+#import "WebViewController.h"
 
 @interface ViewController ()
 {
@@ -28,6 +29,7 @@
     NSMutableArray* _popMenuURLs;
     NSString* _productURL;
     NSString* _activityURL;
+    NSString* _curXMLTag;
     
     IBOutlet UIView* view1;
     IBOutlet UIView* view2;
@@ -49,6 +51,7 @@
 @implementation ViewController
 
 static bool first = true;
+static bool separateWebView = false;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -94,6 +97,7 @@ static bool first = true;
     NSString* userName = [userDefaults objectForKey:@"userName"];
     _loginHint.hidden = userName != nil;
     [_loginButton setTitle:(_loginHint.hidden ? @"登出" : @"登录") forState:UIControlStateNormal];
+    lock = false;
 }
 
 - (void)setBorder:(UIView*)v {
@@ -134,6 +138,7 @@ static bool first = true;
     [self startCaptureSession];
     _camera.hidden = NO;
     _snLabel.hidden = NO;
+    lock = false;
 }
 
 - (IBAction)mine:(id)sender {
@@ -390,11 +395,11 @@ static bool first = true;
              @"<?xml version=\"1.0\" encoding=\"utf-8\"?>"
              "<soap12:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap12=\"http://schemas.xmlsoap.org/soap/envelope/\">"
              "<soap12:Body>"
-             "<selectsjsm xmlns=\"http://tempuri.org/\" >"
-             "<tmewms>"
+             "<GetBarCodeUrl xmlns=\"http://tempuri.org/\" >"
+             "<tcode>"
              "%@"
-             "</tmewms>"
-             "</selectsjsm>"
+             "</tcode>"
+             "</GetBarCodeUrl>"
              "</soap12:Body>"
              "</soap12:Envelope>", astring
              ];
@@ -434,6 +439,7 @@ static bool first = true;
     attributes:(NSDictionary *)attributeDict
 {
     NSLog(@"发现节点:%@", elementName);
+    _curXMLTag = elementName;
     if ([elementName isEqualToString:@"GetMenuResult"]) {
         _readingMenuBuf = YES;
         _popMenuURLBuffer = [NSMutableString new];
@@ -446,6 +452,8 @@ static bool first = true;
     NSLog(@"found character: %@", string);
     if (_readingMenuBuf) {
         [_popMenuURLBuffer appendString:string];
+    } else if ([_curXMLTag isEqualToString:@"GetBarCodeUrlResult"]) {
+        [self gotoWebView:string];
     }
 }
 
@@ -453,6 +461,7 @@ static bool first = true;
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
 {
     if ([elementName isEqualToString:@"GetMenuResult"]) {
+        _readingMenuBuf = NO;
         [_popMenuURLs removeAllObjects];
         NSLog(@"%@", _popMenuURLBuffer);
         NSError* e;
@@ -501,4 +510,21 @@ static bool first = true;
     [operation start];
 }
 
+static bool lock = false;
+- (void)gotoWebView:(NSString*)url {
+    if (!lock) {
+        lock = true;
+        if (separateWebView) {
+            WebViewController* vc = [[WebViewController alloc] initWithNibName:@"WebViewController" bundle:[NSBundle mainBundle]];
+            vc.url = url;
+            [self.navigationController pushViewController:vc animated:YES];
+        } else {
+            [self hideAll];
+            _webView.hidden = NO;
+            NSURL *bcurl = [NSURL URLWithString:url];
+            [_webView loadRequest:[NSURLRequest requestWithURL:bcurl]];
+
+        }
+    }
+}
 @end
