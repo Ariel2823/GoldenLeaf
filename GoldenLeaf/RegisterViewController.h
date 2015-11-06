@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RegisterViewController : UIViewController
-
+@interface RegisterViewController : UIViewController <NSXMLParserDelegate>
+{
+    __weak IBOutlet UITextField* tfUserName;
+    __weak IBOutlet UITextField* tfPwd;
+}
 @end

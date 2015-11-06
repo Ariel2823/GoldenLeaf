@@ -42,4 +42,17 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
++ (BOOL)isEmptyString:(NSString *)string {
+    if([string length] == 0) { //string is empty or nil
+        return YES;
+    }
+    
+    if(![[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] length]) {
+        //string is all whitespace
+        return YES;
+    }
+    
+    return NO;
+}
+
 @end

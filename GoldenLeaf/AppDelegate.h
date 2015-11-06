@@ -7,11 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Const.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
++ (BOOL)isEmptyString:(NSString *)string;
 
 @end
 
