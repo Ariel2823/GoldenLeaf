@@ -12,5 +12,6 @@
 {
     __weak IBOutlet UITextField* tfUserName;
     __weak IBOutlet UITextField* tfPwd;
+    __weak IBOutlet UITextField* tfPwdAgain;
 }
 @end

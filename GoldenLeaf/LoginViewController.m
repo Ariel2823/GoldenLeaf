@@ -28,8 +28,21 @@
 - (IBAction)login:(id)sender {
     NSLog(@"start loggin in...");
     
-    _userName = [AppDelegate isEmptyString:tfUserName.text] ? @"18602897592" : tfUserName.text;
-    _pwd = [AppDelegate isEmptyString:tfPwd.text] ? @"123456" : tfPwd.text;
+    if ([AppDelegate isEmptyString:tfUserName.text]) {
+        UIAlertView* view = [[UIAlertView alloc] initWithTitle:@"" message:@"用户名不能为空" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [view show];
+        return;
+    }
+    
+    if ([AppDelegate isEmptyString:tfPwd.text]) {
+        UIAlertView* view = [[UIAlertView alloc] initWithTitle:@"" message:@"密码不能为空" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [view show];
+        return;
+    }
+    
+    _userName = tfUserName.text; //@"18602897592"
+    _pwd = tfPwd.text; // @"123456"
+    
     NSString *soapMessage =
     [NSString stringWithFormat:
      @"<?xml version=\"1.0\" encoding=\"utf-8\"?>"

@@ -24,10 +24,20 @@
 
 - (IBAction)registerClicked:(id)sender {
     if ([AppDelegate isEmptyString:tfUserName.text]) {
+        UIAlertView* view = [[UIAlertView alloc] initWithTitle:@"" message:@"用户名不能为空" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [view show];
         return;
     }
     
-    if ([AppDelegate isEmptyString:tfPwd.text]) {
+    if ([AppDelegate isEmptyString:tfPwd.text] || [AppDelegate isEmptyString:tfPwdAgain.text]) {
+        UIAlertView* view = [[UIAlertView alloc] initWithTitle:@"" message:@"密码不能为空" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [view show];
+        return;
+    }
+    
+    if (![tfPwdAgain.text isEqualToString:tfPwd.text]) {
+        UIAlertView* view = [[UIAlertView alloc] initWithTitle:@"" message:@"密码不匹配" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [view show];
         return;
     }
     
