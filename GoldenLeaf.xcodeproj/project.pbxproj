@@ -713,7 +713,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.lance.goldenleaf;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "6ee52399-493c-4865-9b70-079be37203d2";
 				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Debug;
@@ -736,7 +736,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.lance.goldenleaf;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "6ee52399-493c-4865-9b70-079be37203d2";
 				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Release;
