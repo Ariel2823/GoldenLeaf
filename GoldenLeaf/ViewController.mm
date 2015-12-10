@@ -45,6 +45,15 @@
     IBOutlet UIButton* _loginButton;
     
     AVCaptureSession *session;
+    
+    NSMutableString* _announcementBuffer;
+    NSString* _announcementURL;
+    
+    NSMutableString* _privateLetterBuffer;
+    NSString* _privateLetterURL;
+    
+    NSMutableString* _myInfoBuffer;
+    NSString* _myInfoURL;
 }
 @end
 
@@ -71,6 +80,9 @@ static bool separateWebView = false;
     
     _popMenuURLBuffer = [NSMutableString new];
     _popMenuURLs = [NSMutableArray new];
+    _announcementBuffer = [NSMutableString new];
+    _privateLetterBuffer = [NSMutableString new];
+    _myInfoBuffer = [NSMutableString new];
     
     [self setBorder:view1];
     [self setBorder:view2];
@@ -98,6 +110,45 @@ static bool separateWebView = false;
     _loginHint.hidden = userName != nil;
     [_loginButton setTitle:(_loginHint.hidden ? @"登出" : @"登录") forState:UIControlStateNormal];
     lock = false;
+    
+    NSString *announcement =
+    [NSString stringWithFormat:
+     @"<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+     "<soap12:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap12=\"http://schemas.xmlsoap.org/soap/envelope/\">"
+     "<soap12:Body>"
+     "<GetAnnouncement xmlns=\"http://tempuri.org/\" >"
+     "</GetAnnouncement>"
+     "</soap12:Body>"
+     "</soap12:Envelope>"
+     ];
+    [self soap:announcement];
+    
+    NSString *soapMessage =
+    [NSString stringWithFormat:
+     @"<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+     "<soap12:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap12=\"http://schemas.xmlsoap.org/soap/envelope/\">"
+     "<soap12:Body>"
+     "<GetPrivateLetter xmlns=\"http://tempuri.org/\" >"
+     "<user_name>"
+     "%@"
+     "</user_name>"
+     "</GetPrivateLetter>"
+     "</soap12:Body>"
+     "</soap12:Envelope>", userName
+     ];
+    [self soap:soapMessage];
+    
+    NSString *myInfo =
+    [NSString stringWithFormat:
+     @"<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+     "<soap12:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap12=\"http://schemas.xmlsoap.org/soap/envelope/\">"
+     "<soap12:Body>"
+     "<GetUserDetails xmlns=\"http://tempuri.org/\" >"
+     "</GetUserDetails>"
+     "</soap12:Body>"
+     "</soap12:Envelope>"
+     ];
+    [self soap:myInfo];
 }
 
 - (void)setBorder:(UIView*)v {
@@ -150,31 +201,25 @@ static bool separateWebView = false;
     _about.hidden = NO;
 }
 
-- (IBAction)myNotification:(id)sender {
-    
+- (IBAction)gotoAnnouncement:(id)sender {
+    lock = false;
+    [self hideAll];
+    if (_announcementURL)
+        [self gotoWebView:_announcementURL];
 }
 
-- (IBAction)myMessage:(id)sender {
-    
+- (IBAction)gotoPrivateLetter:(id)sender {
+    lock = false;
+    [self hideAll];
+    if (_privateLetterURL)
+        [self gotoWebView:_privateLetterURL];
 }
 
-- (IBAction)myInfo:(id)sender {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSString* userName = [userDefaults objectForKey:@"userName"];
-    NSString *soapMessage =
-    [NSString stringWithFormat:
-     @"<?xml version=\"1.0\" encoding=\"utf-8\"?>"
-     "<soap12:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap12=\"http://schemas.xmlsoap.org/soap/envelope/\">"
-     "<soap12:Body>"
-     "<GetUser xmlns=\"http://tempuri.org/\" >"
-     "<usernmae>"
-     "%@"
-     "</usernmae>"
-     "</GetUser>"
-     "</soap12:Body>"
-     "</soap12:Envelope>", userName
-     ];
-    [self soap:soapMessage];
+- (IBAction)gotoMyInfo:(id)sender {
+    lock = false;
+    [self hideAll];
+    if (_myInfoURL)
+        [self gotoWebView:_myInfoURL];
 }
 
 - (IBAction)login:(id)sender {
@@ -443,6 +488,12 @@ static bool separateWebView = false;
     if ([elementName isEqualToString:@"GetMenuResult"]) {
         _readingMenuBuf = YES;
         _popMenuURLBuffer = [NSMutableString new];
+    } else if ([_curXMLTag isEqualToString:@"GetAnnouncement"]) {
+        _announcementBuffer = [NSMutableString new];
+    } else if ([_curXMLTag isEqualToString:@"GetPrivateLetterResult"]) {
+        _privateLetterBuffer = [NSMutableString new];
+    } else if ([_curXMLTag isEqualToString:@"GetUserDetails"]) {
+        _myInfoBuffer = [NSMutableString new];
     }
 }
 
@@ -454,6 +505,12 @@ static bool separateWebView = false;
         [_popMenuURLBuffer appendString:string];
     } else if ([_curXMLTag isEqualToString:@"GetBarCodeUrlResult"]) {
         [self gotoWebView:string];
+    } else if ([_curXMLTag isEqualToString:@"GetAnnouncementResult"]) {
+        [_announcementBuffer appendString:string];
+    } else if ([_curXMLTag isEqualToString:@"GetPrivateLetterResult"]) {
+        [_privateLetterBuffer appendString:string];
+    } else if ([_curXMLTag isEqualToString:@"GetUserDetailsResult"]) {
+        [_myInfoBuffer appendString:string];
     }
 }
 
@@ -478,6 +535,25 @@ static bool separateWebView = false;
             }
         }
         [_popTable reloadData];
+        
+        if (_popMenuURLs && _popMenuURLs.count > 0)
+            [self gotoWebView:_popMenuURLs[0]];
+    } else if ([_curXMLTag isEqualToString:@"GetAnnouncementResult"]) {
+        _announcementURL = _announcementBuffer;
+    } else if ([_curXMLTag isEqualToString:@"GetPrivateLetterResult"]) {
+        NSError* e;
+        NSData* data = [_privateLetterBuffer dataUsingEncoding:NSUTF8StringEncoding];
+        NSArray *result = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&e];
+        if (result && result.count > 0) {
+            _privateLetterURL = result[0][@"MenuUrl"];
+        }
+    } else if ([_curXMLTag isEqualToString:@"GetUserDetailsResult"]) {
+        NSError* e;
+        NSData* data = [_myInfoBuffer dataUsingEncoding:NSUTF8StringEncoding];
+        NSArray *result = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&e];
+        if (result && result.count > 0) {
+            _myInfoURL = result[0][@"MenuUrl"];
+        }
     }
 }
 
