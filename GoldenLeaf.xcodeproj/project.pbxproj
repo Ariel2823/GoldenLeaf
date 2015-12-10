@@ -68,6 +68,7 @@
 		165825011B6BBACC00DF5EB2 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 165825001B6BBACC00DF5EB2 /* arrow.png */; };
 		165825031B6BBB9000DF5EB2 /* arrow_up.png in Resources */ = {isa = PBXBuildFile; fileRef = 165825021B6BBB9000DF5EB2 /* arrow_up.png */; };
 		1658253A1B6F9FFA00DF5EB2 /* libFumarIOS2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 165825391B6F9FFA00DF5EB2 /* libFumarIOS2.a */; };
+		1681ACEB1C19A4A0009262C6 /* about.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1681ACEA1C19A4A0009262C6 /* about.jpg */; };
 		168C8A451B70483F007F6D0E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 168C8A441B70483F007F6D0E /* AVFoundation.framework */; };
 		168C8A471B70487F007F6D0E /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 168C8A461B70487F007F6D0E /* CoreMedia.framework */; };
 /* End PBXBuildFile section */
@@ -176,6 +177,7 @@
 		165825021B6BBB9000DF5EB2 /* arrow_up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow_up.png; sourceTree = "<group>"; };
 		165825381B6F9FFA00DF5EB2 /* FumarIOS2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FumarIOS2.h; sourceTree = "<group>"; };
 		165825391B6F9FFA00DF5EB2 /* libFumarIOS2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFumarIOS2.a; sourceTree = "<group>"; };
+		1681ACEA1C19A4A0009262C6 /* about.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = about.jpg; sourceTree = "<group>"; };
 		168C8A441B70483F007F6D0E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		168C8A461B70487F007F6D0E /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -356,6 +358,7 @@
 		165824D31B6BABBB00DF5EB2 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				1681ACEA1C19A4A0009262C6 /* about.jpg */,
 				165824FE1B6BAD8700DF5EB2 /* barcode.png */,
 				165824D41B6BABBB00DF5EB2 /* 1.png */,
 				165824D51B6BABBB00DF5EB2 /* 10.png */,
@@ -529,6 +532,7 @@
 				162C841B1B92919B00155BE1 /* RegisterViewController.xib in Resources */,
 				165824ED1B6BABBB00DF5EB2 /* 1111111.png in Resources */,
 				165824F71B6BABBB00DF5EB2 /* 333.png in Resources */,
+				1681ACEB1C19A4A0009262C6 /* about.jpg in Resources */,
 				165824BE1B6BABA300DF5EB2 /* LaunchScreen.xib in Resources */,
 				165824BB1B6BABA300DF5EB2 /* Images.xcassets in Resources */,
 			);
