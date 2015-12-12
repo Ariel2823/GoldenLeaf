@@ -69,6 +69,7 @@
 		165825031B6BBB9000DF5EB2 /* arrow_up.png in Resources */ = {isa = PBXBuildFile; fileRef = 165825021B6BBB9000DF5EB2 /* arrow_up.png */; };
 		1658253A1B6F9FFA00DF5EB2 /* libFumarIOS2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 165825391B6F9FFA00DF5EB2 /* libFumarIOS2.a */; };
 		1681ACEB1C19A4A0009262C6 /* about.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1681ACEA1C19A4A0009262C6 /* about.jpg */; };
+		1681ACED1C1C4D52009262C6 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1681ACEC1C1C4D52009262C6 /* icon.png */; };
 		168C8A451B70483F007F6D0E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 168C8A441B70483F007F6D0E /* AVFoundation.framework */; };
 		168C8A471B70487F007F6D0E /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 168C8A461B70487F007F6D0E /* CoreMedia.framework */; };
 /* End PBXBuildFile section */
@@ -178,6 +179,7 @@
 		165825381B6F9FFA00DF5EB2 /* FumarIOS2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FumarIOS2.h; sourceTree = "<group>"; };
 		165825391B6F9FFA00DF5EB2 /* libFumarIOS2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFumarIOS2.a; sourceTree = "<group>"; };
 		1681ACEA1C19A4A0009262C6 /* about.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = about.jpg; sourceTree = "<group>"; };
+		1681ACEC1C1C4D52009262C6 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		168C8A441B70483F007F6D0E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		168C8A461B70487F007F6D0E /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -305,6 +307,7 @@
 		165824AC1B6BABA300DF5EB2 /* GoldenLeaf */ = {
 			isa = PBXGroup;
 			children = (
+				1681ACEC1C1C4D52009262C6 /* icon.png */,
 				161F1C021BE5E7980017CC8F /* TestBarcode */,
 				165824D31B6BABBB00DF5EB2 /* Images */,
 				165824B11B6BABA300DF5EB2 /* AppDelegate.h */,
@@ -502,6 +505,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				165824F51B6BABBB00DF5EB2 /* 222.png in Resources */,
+				1681ACED1C1C4D52009262C6 /* icon.png in Resources */,
 				165825031B6BBB9000DF5EB2 /* arrow_up.png in Resources */,
 				165824FC1B6BABBB00DF5EB2 /* bar.png in Resources */,
 				163B8C021BEA442B007CE82B /* WebViewController.xib in Resources */,
@@ -718,6 +722,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.lance.goldenleaf;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "6ee52399-493c-4865-9b70-079be37203d2";
+				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Debug;
@@ -741,6 +746,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.lance.goldenleaf;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "6ee52399-493c-4865-9b70-079be37203d2";
+				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Release;
