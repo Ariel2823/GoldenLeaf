@@ -43,6 +43,8 @@
     _userName = tfUserName.text; //@"18602897592"
     _pwd = tfPwd.text; // @"123456"
     
+    NSString* dt = ((AppDelegate*)[UIApplication sharedApplication].delegate).deviceToken;
+    
     NSString *soapMessage =
     [NSString stringWithFormat:
      @"<?xml version=\"1.0\" encoding=\"utf-8\"?>"
@@ -55,9 +57,12 @@
         "<pw>"
             "%@"
         "</pw>"
+         "<tag>"
+         "%@"
+         "</tag>"
      "</Getlogins>"
      "</soap12:Body>"
-     "</soap12:Envelope>", _userName, _pwd
+     "</soap12:Envelope>", _userName, _pwd, dt
      ];
     
     NSURL *url = [NSURL URLWithString:@HOME];

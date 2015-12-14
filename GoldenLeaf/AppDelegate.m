@@ -51,7 +51,8 @@
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-    NSLog(@"%@", [NSString stringWithFormat:@"Device Token: %@", deviceToken]);
+    self.deviceToken = [NSString stringWithFormat:@"%@", deviceToken];
+    NSLog(@"%@", self.deviceToken);
     [APService registerDeviceToken:deviceToken];
 }
 
