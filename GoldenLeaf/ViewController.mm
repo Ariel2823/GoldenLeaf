@@ -17,6 +17,7 @@
 
 #import "LoginViewController.h"
 #import "WebViewController.h"
+#import "AppDelegate.h"
 
 @interface ViewController ()
 {
@@ -149,6 +150,13 @@ static bool separateWebView = false;
      "</soap12:Envelope>"
      ];
     [self soap:myInfo];
+    
+    NSString* url = ((AppDelegate*)[UIApplication sharedApplication].delegate).urlAfterLogin;
+    if (url) {
+        lock = false;
+        [self hideAll];
+        [self gotoWebView:url];
+    }
 }
 
 - (void)setBorder:(UIView*)v {

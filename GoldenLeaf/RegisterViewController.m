@@ -13,6 +13,7 @@
 @interface RegisterViewController ()
 {
     NSString* _userName;
+    NSMutableString* _responseBuffer;
 }
 @end
 
@@ -97,20 +98,23 @@
     attributes:(NSDictionary *)attributeDict
 {
     NSLog(@"发现节点:%@", elementName);
+    _responseBuffer = [NSMutableString new];
 }
 
 /* 当解析器找到开始标记和结束标记之间的字符时，调用这个方法解析当前节点的所有字符 */
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
 {
     NSLog(@"found characters:%@", string);
+    [_responseBuffer appendString:string];
+    
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    if ([string isEqualToString:@"1"]) {
+    if ([string isEqualToString:@"0"] || [string isEqualToString:@"false"]) {
+        UIAlertView* view = [[UIAlertView alloc] initWithTitle:@"" message:@"注册失败" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [view show];
+    } else {
         NSLog(@"Register success");
         [userDefaults setObject:_userName forKey:@"userName"];
         [self.navigationController popToRootViewControllerAnimated:YES];
-    } else {
-        UIAlertView* view = [[UIAlertView alloc] initWithTitle:@"" message:@"注册失败" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-        [view show];
     }
     [userDefaults synchronize];
 }
@@ -118,6 +122,8 @@
 /* 当解析器对象遇到xml的结束标记时，调用这个方法完成解析该节点 */
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
 {
+    NSLog(@"direct URL: %@", _responseBuffer);
+    ((AppDelegate*)[UIApplication sharedApplication].delegate).urlAfterLogin = _responseBuffer;
 }
 
 @end

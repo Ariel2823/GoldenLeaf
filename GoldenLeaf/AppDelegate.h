@@ -13,6 +13,7 @@
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) NSString *deviceToken;
+@property (strong, nonatomic) NSString *urlAfterLogin;
 
 + (BOOL)isEmptyString:(NSString *)string;
 
