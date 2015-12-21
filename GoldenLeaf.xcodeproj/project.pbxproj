@@ -72,6 +72,7 @@
 		1681ACED1C1C4D52009262C6 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1681ACEC1C1C4D52009262C6 /* icon.png */; };
 		168C8A451B70483F007F6D0E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 168C8A441B70483F007F6D0E /* AVFoundation.framework */; };
 		168C8A471B70487F007F6D0E /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 168C8A461B70487F007F6D0E /* CoreMedia.framework */; };
+		16D5CB681C2844F0001C6E81 /* testBarcode.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 16D5CB671C2844F0001C6E81 /* testBarcode.PNG */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -182,6 +183,7 @@
 		1681ACEC1C1C4D52009262C6 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		168C8A441B70483F007F6D0E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		168C8A461B70487F007F6D0E /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		16D5CB671C2844F0001C6E81 /* testBarcode.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = testBarcode.PNG; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -272,6 +274,7 @@
 		161F1C021BE5E7980017CC8F /* TestBarcode */ = {
 			isa = PBXGroup;
 			children = (
+				16D5CB671C2844F0001C6E81 /* testBarcode.PNG */,
 				161F1C031BE5E7980017CC8F /* 33866023639956061910.jpg */,
 				161F1C041BE5E7980017CC8F /* 43845024770525534635.jpg */,
 			);
@@ -506,6 +509,7 @@
 			files = (
 				165824F51B6BABBB00DF5EB2 /* 222.png in Resources */,
 				1681ACED1C1C4D52009262C6 /* icon.png in Resources */,
+				16D5CB681C2844F0001C6E81 /* testBarcode.PNG in Resources */,
 				165825031B6BBB9000DF5EB2 /* arrow_up.png in Resources */,
 				165824FC1B6BABBB00DF5EB2 /* bar.png in Resources */,
 				163B8C021BEA442B007CE82B /* WebViewController.xib in Resources */,
@@ -637,6 +641,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -659,6 +664,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "ab1c41c4-8a1b-43b4-9ecc-86d176c52b01";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -681,6 +687,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -696,6 +703,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "ab1c41c4-8a1b-43b4-9ecc-86d176c52b01";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -721,7 +729,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.lance.goldenleaf;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "6ee52399-493c-4865-9b70-079be37203d2";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s";
 			};
@@ -745,7 +753,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.lance.goldenleaf;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "6ee52399-493c-4865-9b70-079be37203d2";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv7s";
 			};
@@ -766,6 +774,7 @@
 				INFOPLIST_FILE = GoldenLeafTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GoldenLeaf.app/GoldenLeaf";
 			};
 			name = Debug;
@@ -781,6 +790,7 @@
 				INFOPLIST_FILE = GoldenLeafTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GoldenLeaf.app/GoldenLeaf";
 			};
 			name = Release;

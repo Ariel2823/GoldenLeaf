@@ -67,6 +67,8 @@
      "</soap12:Envelope>", _userName, _pwd, dt
      ];
     
+    NSLog(@"%@", soapMessage);
+    
     NSURL *url = [NSURL URLWithString:@HOME];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     
