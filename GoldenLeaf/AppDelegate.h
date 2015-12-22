@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Const.h"
+#import "APService.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 

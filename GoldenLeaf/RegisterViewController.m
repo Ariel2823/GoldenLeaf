@@ -69,6 +69,8 @@
      "</soap12:Envelope>", userName, pwd, dt
      ];
     
+    [APService setTags:[NSSet setWithObjects:_userName, nil] alias:_userName callbackSelector:nil object:nil];
+    
     NSURL *url = [NSURL URLWithString:@HOME];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     
