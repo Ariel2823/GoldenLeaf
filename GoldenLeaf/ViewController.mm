@@ -326,6 +326,7 @@ static bool separateWebView = false;
                                     forKey:(id)kCVPixelBufferPixelFormatTypeKey];
         
         AVCaptureVideoPreviewLayer* previewLayer = [AVCaptureVideoPreviewLayer layerWithSession:session];
+        previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
         previewLayer.frame = _camera.bounds;
         [_camera.layer addSublayer:previewLayer];
     }
