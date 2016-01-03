@@ -12,7 +12,9 @@
 
 @interface RegisterViewController ()
 {
+    NSString* _curXMLTag;
     NSString* _userName;
+    NSString* _vCode;
     NSMutableString* _responseBuffer;
 }
 @end
@@ -95,12 +97,60 @@
     [operation start];
 }
 
+- (IBAction)getVerificationCodeClicked:(id)sender {
+//    if ([AppDelegate isEmptyString:tfPhoneNo.text]) {
+//        UIAlertView* view = [[UIAlertView alloc] initWithTitle:@"" message:@"手机号码不能为空" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+//        [view show];
+//        return;
+//    }
+
+    NSString* phoneNo = @"13632530515";//tfPhoneNo.text;
+
+    NSString *soapMessage =
+    [NSString stringWithFormat:
+     @"<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+     "<soap12:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap12=\"http://schemas.xmlsoap.org/soap/envelope/\">"
+     "<soap12:Body>"
+     "<GetVerificationCode xmlns=\"http://tempuri.org/\" >"
+     "<mobileNum>"
+     "%@"
+     "</mobileNum>"
+     "</GetVerificationCode>"
+     "</soap12:Body>"
+     "</soap12:Envelope>", phoneNo
+     ];
+
+    NSURL *url = [NSURL URLWithString:@HOME];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    
+    NSString *msgLength = [NSString stringWithFormat:@"%lu", (unsigned long)[soapMessage length]];
+    
+    [request addValue: @"text/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [request addValue: msgLength forHTTPHeaderField:@"Content-Length"];
+    
+    [request setHTTPMethod:@"POST"];
+    [request setHTTPBody: [soapMessage dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    operation.responseSerializer = [AFXMLParserResponseSerializer serializer];
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSXMLParser* parser = responseObject;
+        parser.delegate = self;
+        [parser parse];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
+    
+    [operation start];
+}
+
 #pragma mark XMLParser Delegate
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
     attributes:(NSDictionary *)attributeDict
 {
     NSLog(@"发现节点:%@", elementName);
     _responseBuffer = [NSMutableString new];
+    _curXMLTag = elementName;
 }
 
 /* 当解析器找到开始标记和结束标记之间的字符时，调用这个方法解析当前节点的所有字符 */
@@ -109,23 +159,29 @@
     NSLog(@"found characters:%@", string);
     [_responseBuffer appendString:string];
     
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    if ([string isEqualToString:@"0"] || [string isEqualToString:@"false"]) {
-        UIAlertView* view = [[UIAlertView alloc] initWithTitle:@"" message:@"注册失败" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-        [view show];
+    if ([_curXMLTag isEqualToString:@"GetVerificationCodeResult"]) {
+        
     } else {
-        NSLog(@"Register success");
-        [userDefaults setObject:_userName forKey:@"userName"];
-        [self.navigationController popToRootViewControllerAnimated:YES];
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        if ([string isEqualToString:@"0"] || [string isEqualToString:@"false"]) {
+            UIAlertView* view = [[UIAlertView alloc] initWithTitle:@"" message:@"注册失败" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [view show];
+        } else {
+            NSLog(@"Register success");
+            [userDefaults setObject:_userName forKey:@"userName"];
+            [self.navigationController popToRootViewControllerAnimated:YES];
+        }
+        [userDefaults synchronize];
     }
-    [userDefaults synchronize];
 }
 
 /* 当解析器对象遇到xml的结束标记时，调用这个方法完成解析该节点 */
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
 {
-    NSLog(@"direct URL: %@", _responseBuffer);
-    ((AppDelegate*)[UIApplication sharedApplication].delegate).urlAfterLogin = _responseBuffer;
+//    if ([elementName isEqualToString:@"GetVerificationCodeResult"]) {
+        NSLog(@"direct URL: %@", _responseBuffer);
+        ((AppDelegate*)[UIApplication sharedApplication].delegate).urlAfterLogin = _responseBuffer;
+//    }
 }
 
 @end

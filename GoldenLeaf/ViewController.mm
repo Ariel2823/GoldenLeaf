@@ -102,6 +102,9 @@ static bool separateWebView = false;
      "</soap12:Envelope>"
      ];
     [self soap:soapMessage];
+    
+    // this will set Mine as the first tab
+    [self hideAll];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -545,8 +548,10 @@ static bool separateWebView = false;
         }
         [_popTable reloadData];
         
-        if (_popMenuURLs && _popMenuURLs.count > 0)
-            [self gotoWebView:_popMenuURLs[0]];
+        // previously we go to product when first appear, now we go to MINE instead
+        // so comment out the following lines
+//        if (_popMenuURLs && _popMenuURLs.count > 0)
+//            [self gotoWebView:_popMenuURLs[0]];
     } else if ([_curXMLTag isEqualToString:@"GetAnnouncementResult"]) {
         _announcementURL = _announcementBuffer;
     } else if ([_curXMLTag isEqualToString:@"GetPrivateLetterResult"]) {
