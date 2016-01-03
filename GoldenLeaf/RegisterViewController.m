@@ -14,7 +14,6 @@
 {
     NSString* _curXMLTag;
     NSString* _userName;
-    NSString* _vCode;
     NSMutableString* _responseBuffer;
 }
 @end
@@ -44,10 +43,17 @@
         return;
     }
     
+    if ([AppDelegate isEmptyString:tfVCode.text]) {
+        UIAlertView* view = [[UIAlertView alloc] initWithTitle:@"" message:@"验证码不能为空" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [view show];
+        return;
+    }
+    
     _userName = tfUserName.text;
     
     NSString* userName = tfUserName.text;
     NSString* pwd = tfPwd.text;
+    NSString* vCode = tfVCode.text;
     
     NSString* dt = ((AppDelegate*)[UIApplication sharedApplication].delegate).deviceToken;
     
@@ -66,9 +72,12 @@
      "<tag>"
      "%@"
      "</tag>"
+     "<code>"
+     "%@"
+     "</code>"
      "</RegisterLogin>"
      "</soap12:Body>"
-     "</soap12:Envelope>", userName, pwd, dt
+     "</soap12:Envelope>", userName, pwd, dt, vCode
      ];
     
     [APService setTags:[NSSet setWithObjects:_userName, nil] alias:_userName callbackSelector:nil object:nil];
@@ -98,13 +107,13 @@
 }
 
 - (IBAction)getVerificationCodeClicked:(id)sender {
-//    if ([AppDelegate isEmptyString:tfPhoneNo.text]) {
-//        UIAlertView* view = [[UIAlertView alloc] initWithTitle:@"" message:@"手机号码不能为空" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-//        [view show];
-//        return;
-//    }
+    if ([AppDelegate isEmptyString:tfUserName.text]) {
+        UIAlertView* view = [[UIAlertView alloc] initWithTitle:@"" message:@"手机号码不能为空" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [view show];
+        return;
+    }
 
-    NSString* phoneNo = @"13632530515";//tfPhoneNo.text;
+    NSString* phoneNo = tfUserName.text;
 
     NSString *soapMessage =
     [NSString stringWithFormat:
@@ -160,7 +169,13 @@
     [_responseBuffer appendString:string];
     
     if ([_curXMLTag isEqualToString:@"GetVerificationCodeResult"]) {
-        
+        if ([string isEqualToString:@"0"] || [string isEqualToString:@"false"]) {
+            UIAlertView* view = [[UIAlertView alloc] initWithTitle:@"" message:@"发送验证码失败" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [view show];
+        } else {
+            UIAlertView* view = [[UIAlertView alloc] initWithTitle:@"" message:@"发送验证码成功" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [view show];
+        }
     } else {
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         if ([string isEqualToString:@"0"] || [string isEqualToString:@"false"]) {
@@ -178,10 +193,10 @@
 /* 当解析器对象遇到xml的结束标记时，调用这个方法完成解析该节点 */
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
 {
-//    if ([elementName isEqualToString:@"GetVerificationCodeResult"]) {
+    if ([elementName isEqualToString:@"RegisterLoginResult"]) {
         NSLog(@"direct URL: %@", _responseBuffer);
         ((AppDelegate*)[UIApplication sharedApplication].delegate).urlAfterLogin = _responseBuffer;
-//    }
+    }
 }
 
 @end

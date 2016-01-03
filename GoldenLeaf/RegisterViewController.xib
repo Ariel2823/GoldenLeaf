@@ -12,6 +12,7 @@
                 <outlet property="tfPwd" destination="NBn-9M-Mah" id="rGb-tV-8J8"/>
                 <outlet property="tfPwdAgain" destination="YIE-Rx-HEe" id="vLr-La-240"/>
                 <outlet property="tfUserName" destination="OEN-iT-gAZ" id="Tx7-RA-S8S"/>
+                <outlet property="tfVCode" destination="DwY-rX-Ha8" id="nm4-vz-Paa"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -36,7 +37,7 @@
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="5-20位，首位为字母" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OEN-iT-gAZ">
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="输入手机号码" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OEN-iT-gAZ">
                     <rect key="frame" x="132" y="84" width="140" height="30"/>
                     <color key="backgroundColor" red="0.80784313725490198" green="0.7803921568627451" blue="0.65490196078431373" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
@@ -44,7 +45,7 @@
                         <constraint firstAttribute="height" constant="30" id="oBX-Mp-34a"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                    <textInputTraits key="textInputTraits"/>
+                    <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                 </textField>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="密  码" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Ai-3U-ch3">
                     <rect key="frame" x="68" y="129" width="64" height="21"/>
@@ -92,7 +93,7 @@
                         </mask>
                     </variation>
                 </textField>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="4位数验证码" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DwY-rX-Ha8">
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="验证码" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DwY-rX-Ha8">
                     <rect key="frame" x="132" y="207" width="140" height="30"/>
                     <color key="backgroundColor" red="0.80784313725490198" green="0.7803921568627451" blue="0.65490196078431373" alpha="1" colorSpace="calibratedRGB"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -135,7 +136,7 @@
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                 </textField>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="手机号码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ILl-IE-yip">
+                <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="手机号码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ILl-IE-yip">
                     <rect key="frame" x="68" y="245" width="132" height="30"/>
                     <color key="backgroundColor" red="0.76470588235294112" green="0.73725490196078436" blue="0.58823529411764708" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>

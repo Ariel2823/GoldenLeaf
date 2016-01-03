@@ -14,5 +14,6 @@
     __weak IBOutlet UITextField* tfPwd;
     __weak IBOutlet UITextField* tfPwdAgain;
     __weak IBOutlet UITextField* tfPhoneNo;
+    __weak IBOutlet UITextField* tfVCode;
 }
 @end
