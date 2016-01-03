@@ -97,7 +97,7 @@
                     <rect key="frame" x="132" y="207" width="140" height="30"/>
                     <color key="backgroundColor" red="0.80784313725490198" green="0.7803921568627451" blue="0.65490196078431373" alpha="1" colorSpace="calibratedRGB"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits"/>
+                    <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                 </textField>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ck9-ac-AY8">
                     <rect key="frame" x="208" y="250" width="64" height="20"/>

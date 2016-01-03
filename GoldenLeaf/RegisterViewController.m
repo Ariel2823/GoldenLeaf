@@ -63,9 +63,9 @@
      "<soap12:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap12=\"http://schemas.xmlsoap.org/soap/envelope/\">"
      "<soap12:Body>"
      "<RegisterLogin xmlns=\"http://tempuri.org/\" >"
-     "<usernmae>"
+     "<username>"
      "%@"
-     "</usernmae>"
+     "</username>"
      "<pw>"
      "%@"
      "</pw>"
@@ -178,8 +178,11 @@
         }
     } else {
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        if ([string isEqualToString:@"0"] || [string isEqualToString:@"false"]) {
+        if ([string isEqualToString:@"-1"] || [string isEqualToString:@"false"] || [string isEqualToString:@"2"]) {
             UIAlertView* view = [[UIAlertView alloc] initWithTitle:@"" message:@"注册失败" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [view show];
+        } else if ([string isEqualToString:@"0"]) {
+            UIAlertView* view = [[UIAlertView alloc] initWithTitle:@"" message:@"用户已经注册" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
             [view show];
         } else {
             NSLog(@"Register success");

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController <AVCaptureVideoDataOutputSampleBufferDelegate, UITableViewDataSource, UITableViewDelegate, UIWebViewDelegate, NSXMLParserDelegate>
+@interface ViewController : UIViewController <AVCaptureVideoDataOutputSampleBufferDelegate, UITableViewDataSource, UITableViewDelegate, UIWebViewDelegate, NSXMLParserDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 
 @end

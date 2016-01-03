@@ -38,8 +38,11 @@
     
     IBOutlet UIWebView* _webView;
     
+    IBOutlet UIView* _cameraContainer;
     IBOutlet UIView* _camera;
+    IBOutlet UIButton* _album;
     IBOutlet UILabel* _snLabel;
+    IBOutlet UIImageView* _testIV;
     
     IBOutlet UIView* _about;
     IBOutlet UIView* _loginHint;
@@ -88,6 +91,11 @@ static bool separateWebView = false;
     [self setBorder:view1];
     [self setBorder:view2];
     [self setBorder:view3];
+    
+    _album.layer.borderWidth=1;
+    _album.layer.borderColor = [UIColor whiteColor].CGColor;
+    _album.layer.cornerRadius = 3;
+    _album.layer.masksToBounds = YES;
     
     _popup.hidden = YES;
 //    [self testImage];
@@ -170,6 +178,7 @@ static bool separateWebView = false;
 }
 
 - (void)hideAll {
+    _cameraContainer.hidden = YES;
     _camera.hidden = YES;
     _snLabel.hidden = YES;
     _webView.hidden = YES;
@@ -198,6 +207,7 @@ static bool separateWebView = false;
 - (IBAction)scan:(id)sender {
     [self hideAll];
     [self startCaptureSession];
+    _cameraContainer.hidden = NO;
     _camera.hidden = NO;
     _snLabel.hidden = NO;
     lock = false;
@@ -243,6 +253,70 @@ static bool separateWebView = false;
         LoginViewController* vc = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:[NSBundle mainBundle]];
         [self.navigationController pushViewController:vc animated:YES];
     }
+}
+
+- (IBAction)albumClicked:(id)sender {
+    UIImagePickerControllerSourceType sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+    imagePickerController.delegate = self;   // 设置委托
+    imagePickerController.sourceType = sourceType;
+    [self presentViewController:imagePickerController animated:YES completion:nil];
+}
+
+//完成拍照
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    [picker dismissViewControllerAnimated:YES completion:^{}];
+    UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
+    if (image == nil)
+        image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    
+//    image = [self fixOrientation:image];
+    
+    int swidth = image.size.width;
+    int sheight = image.size.height;
+    int width = 480;
+    int height = 360;
+    
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    
+    size_t bitsPerComponent = 8;
+    size_t bytesPerPixel    = 4;
+    size_t bytesPerRow      = (width * bitsPerComponent * bytesPerPixel + 7) / 8;
+    size_t dataSize         = bytesPerRow * height;
+    
+    unsigned char *mData = (unsigned char*)malloc(dataSize);
+    memset(mData, 0, dataSize);
+    
+    CGContextRef mContext = CGBitmapContextCreate(mData, width, height,
+                                     bitsPerComponent,
+                                     bytesPerRow, colorSpace,
+                                     kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
+    
+    // fill with black
+    CGRect myRect = {0, 0, 480, 360};
+    CGContextSetRGBFillColor(mContext, 0, 0, 1, 1);
+    CGContextSetRGBStrokeColor(mContext, 0, 0, 0, 1);
+    CGContextSaveGState(mContext);
+    CGContextFillRect(mContext, myRect);
+    CGContextRestoreGState(mContext);
+    
+    // draw image
+    CGContextDrawImage(mContext, CGRectMake(50, 50, swidth, sheight), image.CGImage);
+    
+    CGImageRef imageRef = CGBitmapContextCreateImage(mContext);
+    UIImage *result = [UIImage imageWithCGImage:imageRef];
+    CGImageRelease(imageRef);
+    CGColorSpaceRelease(colorSpace);
+    
+     _testIV.image = result;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self testImage:result];
+    });
+}
+
+//用户取消拍照
+-(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark Popup
@@ -340,6 +414,7 @@ static bool separateWebView = false;
 
 - (void)stopSession {
     [session stopRunning];
+    _cameraContainer.hidden = YES;
     _camera.hidden = YES;
     _snLabel.hidden = YES;
 }
