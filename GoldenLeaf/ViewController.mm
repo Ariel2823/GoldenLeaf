@@ -24,7 +24,7 @@
     IBOutlet UIView* _tabBar;
     IBOutlet UIView* _popup;
     IBOutlet UITableView* _popTable;
-    NSArray* _popMenuTexts;
+    NSMutableArray* _popMenuTexts;
     BOOL _readingMenuBuf;
     NSMutableString* _popMenuURLBuffer;
     NSMutableArray* _popMenuURLs;
@@ -71,16 +71,7 @@ static bool separateWebView = false;
     
     _webView.delegate = self;
     
-    _popMenuTexts = @[@"产品中心",
-                      @"积分商城",
-                      @"中烟风采",
-                      @"风土人情",
-                      @"品牌故事",
-                      @"活动专区",
-                      @"会员专区",
-                      @"防伪验证",
-                      @"问卷调查",
-                      @"留言反馈"];
+    _popMenuTexts = [NSMutableArray new];
     
     _popMenuURLBuffer = [NSMutableString new];
     _popMenuURLs = [NSMutableArray new];
@@ -607,12 +598,15 @@ static bool separateWebView = false;
     if ([elementName isEqualToString:@"GetMenuResult"]) {
         _readingMenuBuf = NO;
         [_popMenuURLs removeAllObjects];
+        [_popMenuTexts removeAllObjects];
         NSLog(@"%@", _popMenuURLBuffer);
         NSError* e;
         NSData* data = [_popMenuURLBuffer dataUsingEncoding:NSUTF8StringEncoding];
         NSArray *result = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&e];
         for (NSDictionary* item in result) {
             NSString* name = [item[@"MenuName"] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+            NSString* menuName = item[@"MenuName"];
+            [_popMenuTexts addObject:menuName];
             NSString* url = item[@"MenuUrl"];
             [_popMenuURLs addObject:url];
             if ([name isEqualToString:@"产品中心"]) {

@@ -24,6 +24,14 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    [tfUserName resignFirstResponder];
+    [tfPwd resignFirstResponder];
+    [tfPwdAgain resignFirstResponder];
+    [tfPhoneNo resignFirstResponder];
+    [tfVCode resignFirstResponder];
+}
+
 - (IBAction)registerClicked:(id)sender {
     if ([AppDelegate isEmptyString:tfUserName.text]) {
         UIAlertView* view = [[UIAlertView alloc] initWithTitle:@"" message:@"用户名不能为空" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
