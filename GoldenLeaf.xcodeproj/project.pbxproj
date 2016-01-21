@@ -73,6 +73,7 @@
 		168C8A451B70483F007F6D0E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 168C8A441B70483F007F6D0E /* AVFoundation.framework */; };
 		168C8A471B70487F007F6D0E /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 168C8A461B70487F007F6D0E /* CoreMedia.framework */; };
 		16D5CB681C2844F0001C6E81 /* testBarcode.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 16D5CB671C2844F0001C6E81 /* testBarcode.PNG */; };
+		16F1EF321C493E5800D7D181 /* 105-3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 16F1EF311C493E5800D7D181 /* 105-3.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -184,6 +185,7 @@
 		168C8A441B70483F007F6D0E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		168C8A461B70487F007F6D0E /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		16D5CB671C2844F0001C6E81 /* testBarcode.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = testBarcode.PNG; sourceTree = "<group>"; };
+		16F1EF311C493E5800D7D181 /* 105-3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "105-3.jpg"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -274,6 +276,7 @@
 		161F1C021BE5E7980017CC8F /* TestBarcode */ = {
 			isa = PBXGroup;
 			children = (
+				16F1EF311C493E5800D7D181 /* 105-3.jpg */,
 				16D5CB671C2844F0001C6E81 /* testBarcode.PNG */,
 				161F1C031BE5E7980017CC8F /* 33866023639956061910.jpg */,
 				161F1C041BE5E7980017CC8F /* 43845024770525534635.jpg */,
@@ -517,6 +520,7 @@
 				162C84201B92989000155BE1 /* LoginViewController.xib in Resources */,
 				165824F21B6BABBB00DF5EB2 /* 2.png in Resources */,
 				165824EA1B6BABBB00DF5EB2 /* 10.png in Resources */,
+				16F1EF321C493E5800D7D181 /* 105-3.jpg in Resources */,
 				165824F61B6BABBB00DF5EB2 /* 22new.png in Resources */,
 				165825011B6BBACC00DF5EB2 /* arrow.png in Resources */,
 				161F1C061BE5E7980017CC8F /* 43845024770525534635.jpg in Resources */,

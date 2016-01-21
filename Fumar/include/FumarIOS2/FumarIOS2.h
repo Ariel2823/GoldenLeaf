@@ -26,6 +26,8 @@ void fuma_Bar2D_DoMatch(unsigned char* yuvArr, char* pRetSn);
 void fuma_Bar2D_DoMatch(UIImage* pUIImage, char* pRetSn);
 
 
+void fuma_Bar2D_SingleImageRecg(UIImage* pUIImage, char* pRetSn,
+                                bool bUpSideDown, bool bExpand);
 
 @interface FumarIOS2 : NSObject
 

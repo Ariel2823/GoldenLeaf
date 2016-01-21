@@ -247,6 +247,7 @@ static bool separateWebView = false;
 }
 
 - (IBAction)albumClicked:(id)sender {
+    [session stopRunning];
     UIImagePickerControllerSourceType sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
     imagePickerController.delegate = self;   // 设置委托
@@ -263,45 +264,45 @@ static bool separateWebView = false;
     
 //    image = [self fixOrientation:image];
     
-    int swidth = image.size.width;
-    int sheight = image.size.height;
-    int width = 480;
-    int height = 360;
-    
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    
-    size_t bitsPerComponent = 8;
-    size_t bytesPerPixel    = 4;
-    size_t bytesPerRow      = (width * bitsPerComponent * bytesPerPixel + 7) / 8;
-    size_t dataSize         = bytesPerRow * height;
-    
-    unsigned char *mData = (unsigned char*)malloc(dataSize);
-    memset(mData, 0, dataSize);
-    
-    CGContextRef mContext = CGBitmapContextCreate(mData, width, height,
-                                     bitsPerComponent,
-                                     bytesPerRow, colorSpace,
-                                     kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
-    
-    // fill with black
-    CGRect myRect = {0, 0, 480, 360};
-    CGContextSetRGBFillColor(mContext, 0, 0, 1, 1);
-    CGContextSetRGBStrokeColor(mContext, 0, 0, 0, 1);
-    CGContextSaveGState(mContext);
-    CGContextFillRect(mContext, myRect);
-    CGContextRestoreGState(mContext);
-    
-    // draw image
-    CGContextDrawImage(mContext, CGRectMake(50, 50, swidth, sheight), image.CGImage);
-    
-    CGImageRef imageRef = CGBitmapContextCreateImage(mContext);
-    UIImage *result = [UIImage imageWithCGImage:imageRef];
-    CGImageRelease(imageRef);
-    CGColorSpaceRelease(colorSpace);
-    
-     _testIV.image = result;
+//    int swidth = image.size.width;
+//    int sheight = image.size.height;
+//    int width = 480;
+//    int height = 360;
+//    
+//    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+//    
+//    size_t bitsPerComponent = 8;
+//    size_t bytesPerPixel    = 4;
+//    size_t bytesPerRow      = (width * bitsPerComponent * bytesPerPixel + 7) / 8;
+//    size_t dataSize         = bytesPerRow * height;
+//    
+//    unsigned char *mData = (unsigned char*)malloc(dataSize);
+//    memset(mData, 0, dataSize);
+//    
+//    CGContextRef mContext = CGBitmapContextCreate(mData, width, height,
+//                                     bitsPerComponent,
+//                                     bytesPerRow, colorSpace,
+//                                     kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
+//    
+//    // fill with black
+//    CGRect myRect = {0, 0, 480, 360};
+//    CGContextSetRGBFillColor(mContext, 0, 0, 1, 1);
+//    CGContextSetRGBStrokeColor(mContext, 0, 0, 0, 1);
+//    CGContextSaveGState(mContext);
+//    CGContextFillRect(mContext, myRect);
+//    CGContextRestoreGState(mContext);
+//    
+//    // draw image
+//    CGContextDrawImage(mContext, CGRectMake(50, 50, swidth, sheight), image.CGImage);
+//    
+//    CGImageRef imageRef = CGBitmapContextCreateImage(mContext);
+//    UIImage *result = [UIImage imageWithCGImage:imageRef];
+//    CGImageRelease(imageRef);
+//    CGColorSpaceRelease(colorSpace);
+//    
+//     _testIV.image = result;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [self testImage:result];
+        [self testImage:image];
     });
 }
 
@@ -464,80 +465,38 @@ static bool separateWebView = false;
 {
 #if !TARGET_IPHONE_SIMULATOR
 //    NSLog(@"ver:%@",fuma_Bar2D_GetVersion());
-    
-    if (!image) {
-        NSURL *url=[NSURL URLWithString:@"http://115.29.39.16/1.png"];
-        image =[[UIImage alloc]initWithData:[NSData dataWithContentsOfURL:url]];
-    }
-    
-    CGSize sz = [image size];
-    int w = sz.width;
-    int h = sz.height;
-    
-    
-    
-    //unsigned char * pData = (unsigned char *)malloc(w*h*4);
-    
-    //[ImageHelper convertUIImageToBitmapRGBA8:imgFromUrl retBut:pData];
-    
-    
-    
-    if (first) {
-        fuma_Bar2D_InitLib(w, h, false, false);
-        first = NO;
-    }
-    //fuma_Bar2D_InitLib(w, h, false, false);
-    
+  
     char sn[100];
-    
-    for (int k=0; k<1; k++)
-    {
-//        CFAbsoluteTime start = CFAbsoluteTimeGetCurrent();
-        
-        // do something you want to measure
-        fuma_Bar2D_DoMatch(image, sn);
-        
-//        CFAbsoluteTime end = CFAbsoluteTimeGetCurrent();
-//        NSLog(@"[%d], operation took %2.5f seconds", k, end-start);
-        
-        [NSThread sleepForTimeInterval:0.01f];
-    }
-    
-    //fuma_Bar2D_DoMatch(pData, sn);
+    fuma_Bar2D_SingleImageRecg(image, sn, false,false);
     
     NSString *astring = [NSString stringWithFormat:@"%s", sn];
-    
     if (astring.length > 0)
         NSLog(@"sn: %s",sn);
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        _snLabel.text = astring;
-        if (astring.length > 0) {
-            NSString *soapMessage =
-            [NSString stringWithFormat:
-             @"<?xml version=\"1.0\" encoding=\"utf-8\"?>"
-             "<soap12:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap12=\"http://schemas.xmlsoap.org/soap/envelope/\">"
-             "<soap12:Body>"
-             "<GetBarCodeUrl xmlns=\"http://tempuri.org/\" >"
-             "<tcode>"
-             "%@"
-             "</tcode>"
-             "</GetBarCodeUrl>"
-             "</soap12:Body>"
-             "</soap12:Envelope>", astring
-             ];
-            [self soap:soapMessage];
-        }
-    });
-    
-//    fuma_Bar2D_DestroyLib( );
-    
-    
-    //free(pData);
-    
+    if (astring.length > 0 && ![astring hasPrefix:@"err"]) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            _snLabel.text = astring;
+            if (astring.length > 0) {
+                NSString *soapMessage =
+                [NSString stringWithFormat:
+                 @"<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+                 "<soap12:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap12=\"http://schemas.xmlsoap.org/soap/envelope/\">"
+                 "<soap12:Body>"
+                 "<GetBarCodeUrl xmlns=\"http://tempuri.org/\" >"
+                 "<tcode>"
+                 "%@"
+                 "</tcode>"
+                 "</GetBarCodeUrl>"
+                 "</soap12:Body>"
+                 "</soap12:Envelope>", astring
+                 ];
+                [self soap:soapMessage];
+            }
+        });
+    } else {
+        [session startRunning];
+    }
 #endif
-    
-    
 }
 
 #pragma mark WebView Delegate
