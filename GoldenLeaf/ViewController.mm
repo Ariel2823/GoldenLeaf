@@ -158,6 +158,7 @@ static bool separateWebView = false;
         lock = false;
         [self hideAll];
         [self gotoWebView:url];
+        ((AppDelegate*)[UIApplication sharedApplication].delegate).urlAfterLogin = nil;
     }
 }
 
